@@ -1,2 +1,2 @@
-# 2simplygames.github.io
+# 2simply Games
 Official GitHub repo for 2Simply Games.
