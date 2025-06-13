@@ -3,3182 +3,756 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Ddakji: Flip Modes!</title>
+    <title>2simply - Simple Games, Highest Fun</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Permanent+Marker&family=Bebas+Neue&family=Roboto+Condensed:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
-    
-    <link rel="icon" type="image/x-icon" href="wddakji_icon.png">
+    <link rel="icon" type="image/x-icon" href="icon.png">
     <style>
-        /* Custom font definitions */
-        @font-face {
-            font-family: 'Radio Canada Big';
-            src: url('radioc.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'Press Start 2P';
-            src: url('gamify.ttf') format('truetype');
-        }
-        
-		@font-face {
-            font-family: 'Minecraft';
-            src: url('font/minecraft.ttf') format('truetype');
-        }
-		
-		@font-face {
-            font-family: 'Minecraft Heading';
-            src: url('font/minecraft-heading.ttf') format('truetype');
-        }
-		
-		
-		@font-face {
-            font-family: 'Squid Game';
-            src: url('font/squidgame.ttf') format('truetype');
-        }
-		
-		@font-face {
-            font-family: 'Batman';
-            src: url('font/batman.ttf') format('truetype');
-        }
-		
-		@font-face {
-            font-family: 'Avengers';
-            src: url('font/avengers.ttf') format('truetype');
-        }
-		
-		@font-face {
-            font-family: 'Agency';
-            src: url('font/agency.ttf') format('truetype');
-        }
-		
-		@font-face {
-            font-family: 'Bebas Neue';
-            src: url('font/bebas-neue.ttf') format('truetype');
-        }
-		
-		@font-face {
-            font-family: 'Oswald';
-            src: url('font/oswald.ttf') format('truetype');
-        }
-		
-		@font-face {
-            font-family: 'Creepster';
-            src: url('font/creepster.ttf') format('truetype');
-        }
-		
-		@font-face {
-            font-family: 'Roboto Condensed';
-            src: url('font/roboto-condensed.ttf') format('truetype');
-        }
-		
-        
-        a {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-family: 'Press Start 2P', cursive;
-            word-break: break-word;
-
-            /* Apply CSS variables */
-            color: var(--final-score-color);
-            text-shadow: var(--final-score-text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out;
-            text-decoration: none;
-        }
-        
-        /* CSS Variables for Theming - Default Theme */
-        :root {
-            --body-background: linear-gradient(135deg, #7F00FF, #E100FF); /* Original purple gradient */
-            --container-background: rgba(0, 0, 0, 0.7); /* Purplish transparent */
-            --container-border: 3px solid #ffcc00;
-            --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            --title-color: #ffcc00;
-            --title-text-shadow: 4px 4px #4a008a;
-            --primary-btn-bg: #00FF7F;
-            --primary-btn-color: #212121;
-            --primary-btn-hover-bg: #00DD6E;
-            --secondary-btn-bg: #555;
-            --secondary-btn-color: #fff;
-            --secondary-btn-hover-bg: #777;
-            --danger-btn-bg: #dc3545;
-            --danger-btn-color: #fff;
-            --danger-btn-hover-bg: #c82333;
-            --text-color: #fff;
-            --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            --word-display-color: #fff;
-            --word-display-text-shadow: 3px 3px #8a004a;
-            --choice-box-bg: #333;
-            --choice-box-border: 2px solid #666;
-            --timer-bar-bg: #ffcc00;
-            --timer-bar-depleted-bg: #dc3545;
-            --final-score-color: #00FF7F;
-            --final-score-text-shadow: 4px 4px #212121;
-            --heading-color: #00FF7F;
-            --heading-text-shadow: 3px 3px #212121;
-            --strong-color: #ffcc00;
-            --bullet-color: #00FF7F;
-            --game-container-backdrop-filter: none; /* For blur theme */
-            --body-background-size: auto;
-            --body-background-position: center center;
-            --body-background-repeat: no-repeat;
-
-            /* New UI Overhaul Theme Variables */
-            --ui-font-family: 'Radio Canada Big', sans-serif;
-            --ui-border-radius-buttons: 8px;
-            --ui-border-radius-cards: 20px;
-            --ui-button-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            --ui-button-hover-transform: translateY(-2px);
-            --ui-button-active-transform: translateY(0);
-            --ui-choice-box-hover-bg: #555;
-            --ui-choice-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-            --ui-glow-filter: none;
-            --ui-blur-filter: none; /* Default to no specific blur for new themes */
-			--header-font-family: 'Press Start 2P', sans-serif;
-            --button-font-family: 'Press Start 2P', sans-serif;
-        }
-
-        /* Existing Themes (only color/background changes) */
-        /* Theme 1: Retro Arcade (black, gold, light blue) */
-        body.theme-retro-arcade {
-            --body-background: linear-gradient(135deg, #000000, #2c3e50);
-            --container-background: rgba(20, 20, 20, 0.9);
-            --container-border: 3px solid #FFD700; /* Gold */
-            --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-            --title-color: #00FFFF; /* Light Blue */
-            --title-text-shadow: 4px 4px #FFD700;
-            --primary-btn-bg: #00FFFF;
-            --primary-btn-color: #000000;
-            --primary-btn-hover-bg: #00CCCC;
-            --secondary-btn-bg: #34495e;
-            --secondary-btn-color: #fff;
-            --secondary-btn-hover-bg: #4a627a;
-            --danger-btn-bg: #FF4500; /* Orange-Red */
-            --danger-btn-color: #fff;
-            --danger-btn-hover-bg: #CC3700;
-            --text-color: #E0E0E0;
-            --text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-            --word-display-color: #FFD700;
-            --word-display-text-shadow: 3px 3px #00FFFF;
-            --choice-box-bg: #1a1a1a;
-            --choice-box-border: 2px solid #555;
-            --timer-bar-bg: #00FFFF;
-            --timer-bar-depleted-bg: #FF4500;
-            --final-score-color: #00FFFF;
-            --final-score-text-shadow: 4px 4px #FFD700;
-            --heading-color: #FFD700;
-            --heading-text-shadow: 3px 3px #00FFFF;
-            --strong-color: #00FFFF;
-            --bullet-color: #FFD700;
-        }
-
-        /* Theme 2: Pastel Dream (light pink, green, white) */
-        body.theme-pastel-dream {
-            --body-background: linear-gradient(135deg, #FFD1DC, #E0FFFF); /* Light Pink to Light Cyan */
-            --container-background: rgba(255, 255, 255, 0.85);
-            --container-border: 3px solid #98FB98; /* Pale Green */
-            --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            --title-color: #87CEEB; /* Sky Blue */
-            --title-text-shadow: 4px 4px #FFC0CB; /* Pink */
-            --primary-btn-bg: #98FB98;
-            --primary-btn-color: #333;
-            --primary-btn-hover-bg: #7CFC00;
-            --secondary-btn-bg: #DDA0DD; /* Plum */
-            --secondary-btn-color: #fff;
-            --secondary-btn-hover-bg: #C71585; /* Medium Violet Red */
-            --danger-btn-bg: #FF6347; /* Tomato */
-            --danger-btn-color: #fff;
-            --danger-btn-hover-bg: #E4573D;
-            --text-color: #333;
-            --text-shadow: none;
-            --word-display-color: #87CEEB;
-            --word-display-text-shadow: 3px 3px #FFC0CB;
-            --choice-box-bg: #F0F8FF; /* Alice Blue */
-            --choice-box-border: 2px solid #ADD8E6; /* Light Blue */
-            --timer-bar-bg: #98FB98;
-            --timer-bar-depleted-bg: #FF6347;
-            --final-score-color: #98FB98;
-            --final-score-text-shadow: 4px 4px rgba(0,0,0,0.1);
-            --heading-color: #DDA0DD;
-            --heading-text-shadow: 3px 3px rgba(0,0,0,0.1);
-            --strong-color: #87CEEB;
-            --bullet-color: #98FB98;
-        }
-
-        /* Theme 3: Blurred Reality (random image, blurred container) */
-        body.theme-blurred-reality {
-            /* Background image will be set via JS */
-            --body-background: url(''); /* Placeholder, set by JS */
-            --body-background-size: cover;
-            --body-background-position: center center;
-            --body-background-repeat: no-repeat;
-            
-            --container-background: rgba(0, 0, 0, 0.2); /* More transparent */
-            --container-border: 3px solid rgba(255, 255, 255, 0.5);
-            --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            --game-container-backdrop-filter: blur(8px); /* Apply blur to container */
-
-            --title-color: #FFFFFF;
-            --title-text-shadow: 4px 4px rgba(0, 0, 0, 0.5);
-            --primary-btn-bg: rgba(255, 255, 255, 0.7);
-            --primary-btn-color: #333;
-            --primary-btn-hover-bg: rgba(255, 255, 255, 0.9);
-            --secondary-btn-bg: rgba(100, 100, 100, 0.7);
-            --secondary-btn-color: #fff;
-            --secondary-btn-hover-bg: rgba(120, 120, 120, 0.9);
-            --danger-btn-bg: rgba(220, 53, 69, 0.7);
-            --danger-btn-color: #fff;
-            --danger-btn-hover-bg: rgba(220, 53, 69, 0.9);
-            --text-color: #FFFFFF;
-            --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-            --word-display-color: #FFFFFF;
-            --word-display-text-shadow: 3px 3px rgba(0, 0, 0, 0.7);
-            --choice-box-bg: rgba(0, 0, 0, 0.3);
-            --choice-box-border: 2px solid rgba(255, 255, 255, 0.4);
-            --timer-bar-bg: rgba(255, 255, 255, 0.7);
-            --timer-bar-depleted-bg: rgba(220, 53, 69, 0.7);
-            --final-score-color: #FFFFFF;
-            --final-score-text-shadow: 4px 4px rgba(0, 0, 0, 0.7);
-            --heading-color: #FFFFFF;
-            --heading-text-shadow: 3px 3px rgba(0, 0, 0, 0.7);
-            --strong-color: #E0FFFF; /* Light Cyan for contrast */
-            --bullet-color: #FFFFFF;
-            --ui-blur-filter: none; /* No additional blur on top of backdrop-filter */
-        }
-
-
-        /* NEW THEMES - Overhaul UI */
-
-        /* Minecraft Theme */
-        body.theme-minecraft {
-            --body-background: url('images/minecraft.jpg') no-repeat center center / cover; /* Placeholder */
-            --body-background-size: cover;
-            --body-background-position: center center;
-            --body-background-repeat: no-repeat;
-            --container-background: rgba(30, 30, 30, 0.9); /* Dark stone-like */
-            --container-border: 4px solid #8B4513; /* Wood/dirt border */
-            --container-box-shadow: 8px 8px #000000; /* Blocky shadow */
-            --game-container-backdrop-filter: blur(5px); /* Added blur for game-container */
-            --title-color: #A0A0A0; /* Stone grey */
-            --title-text-shadow: 4px 4px #000000;
-            --primary-btn-bg: #5C883D; /* Grass block green */
-            --primary-btn-color: #FFFFFF;
-            --primary-btn-hover-bg: #4A6E32;
-            --secondary-btn-bg: #707070; /* Cobblestone grey */
-            --secondary-btn-color: #FFFFFF;
-            --secondary-btn-hover-bg: #5A5A5A;
-            --danger-btn-bg: #B00000; /* Lava red */
-            --danger-btn-color: #FFFFFF;
-            --danger-btn-hover-bg: #800000;
-            --text-color: #E0E0E0;
-            --text-shadow: 2px 2px 0px #000000; /* Pixelated text shadow */
-            --word-display-color: #E0E0E0;
-            --word-display-text-shadow: 3px 3px 0px #000000;
-            --choice-box-bg: #404040; /* Darker stone */
-            --choice-box-border: 2px solid #606060;
-            --timer-bar-bg: #5C883D;
-            --timer-bar-depleted-bg: #B00000;
-            --final-score-color: #5C883D;
-            --final-score-text-shadow: 4px 4px #000000;
-            --heading-color: #A0A0A0;
-            --heading-text-shadow: 3px 3px #000000;
-            --strong-color: #FFD700; /* Gold */
-            --bullet-color: #5C883D;
-
-            --ui-font-family: 'Minecraft', sans-serif;
-            --ui-border-radius-buttons: 0; /* Blocky buttons */
-            --ui-border-radius-cards: 5px; /* Slightly rounded block corners */
-            --ui-button-shadow: 4px 4px #000000; /* Blocky shadow */
-            --ui-button-hover-transform: none; /* No smooth transform */
-            --ui-button-active-transform: translate(2px, 2px); /* Click into place */
-            --ui-choice-box-hover-bg: #606060; /* Darker stone hover */
-            --ui-choice-box-shadow: 3px 3px #000000;
-            --ui-glow-filter: none;
-            --ui-blur-filter: none; /* Removed blur from here, applies to choice-box */
-			--header-font-family: 'Minecraft Heading', cursive;
-            --button-font-family: 'Minecraft', cursive;
-        }
-
-        /* Squid Game Theme */
-        body.theme-squid-game {
-             --body-background: url('images/squid-game.png'); /* Placeholder */
-			 --body-background-size: cover;
-            --body-background-position: center center;
-            --body-background-repeat: no-repeat;
-            --container-background: rgba(0, 0, 0, 0.60); /* Nearly black */
-            --container-border: 3px solid #ff0079; /* Green outline */
-            --container-box-shadow: 0 0 25px #ff0079; /* Green glow */
-            --title-color: #FFFFFF;
-            --title-text-shadow: 3px 3px #ff0079; /* Green shadow */
-            --primary-btn-bg: #ff0079; /* Green */
-            --primary-btn-color: #000000;
-            --primary-btn-hover-bg: #9d004a;
-            --secondary-btn-bg: #0000008c; /* Darker grey */
-            --secondary-btn-color: #FFFFFF;
-            --secondary-btn-hover-bg: #0000008c;
-            --danger-btn-bg: #FF0000; /* Red */
-            --danger-btn-color: #FFFFFF;
-            --danger-btn-hover-bg: #CC0000;
-            --text-color: #FFFFFF;
-            --text-shadow: 1px 1px 2px #000000;
-            --word-display-color: #FFFFFF;
-            --word-display-text-shadow: 3px 3px #ff0079; /* Green shadow */
-            --choice-box-bg: #1A1A1A; /* Very dark */
-            --choice-box-border: 2px solid #ff0079;
-            --timer-bar-bg: #00FF00;
-            --timer-bar-depleted-bg: #FF0000;
-            --final-score-color: #ff0079;
-            --final-score-text-shadow: 4px 4px #000000;
-            --heading-color: #FFFFFF;
-            --heading-text-shadow: 3px 3px #ff0079;
-            --strong-color: #ff0079; /* Cyan */
-            --bullet-color: #ff0079;
-			--game-container-backdrop-filter: blur(8px);
-
-            --ui-font-family: 'Bebas Neue', sans-serif; /* Bold, condensed */
-            --ui-border-radius-buttons: 5px; /* Slightly rounded */
-            --ui-border-radius-cards: 10px; /* Modern, clean cards */
-            --ui-button-shadow: 0 0 15px #ff00798c; /* Subtle green glow */
-            --ui-button-hover-transform: scale(1.02); /* Slight scale */
-            --ui-button-active-transform: scale(0.98);
-            --ui-choice-box-hover-bg: #333; /* Darker hover */
-            --ui-choice-box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
-            --ui-glow-filter: drop-shadow(0 0 8px #ff0079); /* Stronger glow */
-            --ui-blur-filter: none;
-			--header-font-family: 'Squid Game', cursive;
-			--button-font-family: 'Squid Game', cursive;
-            
-        }
-
-        /* Batman Theme */
-        body.theme-batman {
-            --body-background: url('images/batman.jpg') no-repeat center center / cover; /* Placeholder */
-            --body-background-size: cover;
-            --body-background-position: center center;
-            --body-background-repeat: no-repeat;
-            --container-background: rgba(10, 10, 10, 0.9); /* Very dark */
-            --container-border: 3px solid #404040; /* Dark grey */
-            --container-box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8); /* Deep shadow */
-            --game-container-backdrop-filter: blur(5px); /* Added blur for game-container */
-            --title-color: #FFD700; /* Gold/yellow (Bat-signal) */
-            --title-text-shadow: 4px 4px #000000;
-            --primary-btn-bg: #000000; /* Black */
-            --primary-btn-color: #FFD700; /* Gold */
-            --primary-btn-hover-bg: #303030; /* Darker hover */
-            --secondary-btn-bg: #303030; /* Dark grey */
-            --secondary-btn-color: #A0A0A0;
-            --secondary-btn-hover-bg: #505050;
-            --danger-btn-bg: #800000; /* Deep red */
-            --danger-btn-color: #FFFFFF;
-            --danger-btn-hover-bg: #600000;
-            --text-color: #E0E0E0;
-            --text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-            --word-display-color: #FFD700;
-            --word-display-text-shadow: 3px 3px #000000;
-            --choice-box-bg: #202020; /* Even darker */
-            --choice-box-border: 2px solid #505050;
-            --timer-bar-bg: #FFD700;
-            --timer-bar-depleted-bg: #800000;
-            --final-score-color: #FFD700;
-            --final-score-text-shadow: 4px 4px #000000;
-            --heading-color: #FFD700;
-            --heading-text-shadow: 3px 3px #000000;
-            --strong-color: #A0A0A0;
-            --bullet-color: #FFD700;
-			--game-container-backdrop-filter: blur(8px);
-
-            --ui-font-family: 'Oswald', sans-serif; /* Strong, gothic feel */
-            --ui-border-radius-buttons: 4px; /* Sharp corners */
-            --ui-border-radius-cards: 8px; /* Defined angles */
-            --ui-button-shadow: 0 0 10px rgba(255, 215, 0, 0.3); /* Subtle yellow glow */
-            --ui-button-hover-transform: translateY(-3px) scale(1.01); /* Lift and grow */
-            --ui-button-active-transform: translateY(0) scale(0.99);
-            --ui-choice-box-hover-bg: #303030;
-            --ui-choice-box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
-            --ui-glow-filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
-            --ui-blur-filter: none; /* Removed blur from here, applies to choice-box */
-			--header-font-family: 'Batman', cursive;
-			--button-font-family: 'Batman', cursive;
-            
-        }
-		
-		/* Avengers Theme */
-        body.theme-avengers {
-            --body-background: url('images/avengers.jpg') no-repeat center center / cover; /* Placeholder */
-            --body-background-size: cover;
-            --body-background-position: center center;
-            --body-background-repeat: no-repeat;
-            --container-background: rgba(10, 10, 10, 0.9); /* Very dark */
-            --container-border: 3px solid #404040; /* Dark grey */
-            --container-box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8); /* Deep shadow */
-            --game-container-backdrop-filter: blur(5px); /* Added blur for game-container */
-            --title-color: #778ba6; /* Gold/yellow (Bat-signal) */
-            --title-text-shadow: 4px 4px #000000;
-            --primary-btn-bg: #000000; /* Black */
-            --primary-btn-color: #778ba6; /* Gold */
-            --primary-btn-hover-bg: #303030; /* Darker hover */
-            --secondary-btn-bg: #000000; /* Dark grey */
-            --secondary-btn-color: #ffffff;
-            --secondary-btn-hover-bg: #000000;
-            --danger-btn-bg: #800000; /* Deep red */
-            --danger-btn-color: #FFFFFF;
-            --danger-btn-hover-bg: #600000;
-            --text-color: #E0E0E0;
-            --text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-            --word-display-color: #778ba6;
-            --word-display-text-shadow: 3px 3px #000000;
-            --choice-box-bg: #202020; /* Even darker */
-            --choice-box-border: 2px solid #505050;
-            --timer-bar-bg: #778ba6;
-            --timer-bar-depleted-bg: #800000;
-            --final-score-color: #778ba6;
-            --final-score-text-shadow: 4px 4px #000000;
-            --heading-color: #778ba6;
-            --heading-text-shadow: 3px 3px #000000;
-            --strong-color: #A0A0A0;
-            --bullet-color: #778ba6;
-			--game-container-backdrop-filter: blur(8px);
-
-            --ui-font-family: 'Agency', sans-serif; /* Strong, gothic feel */
-            --ui-border-radius-buttons: 4px; /* Sharp corners */
-            --ui-border-radius-cards: 8px; /* Defined angles */
-            --ui-button-shadow: 0 0 10px #778ba6; /* Subtle yellow glow */
-            --ui-button-hover-transform: translateY(-3px) scale(1.01); /* Lift and grow */
-            --ui-button-active-transform: translateY(0) scale(0.99);
-            --ui-choice-box-hover-bg: #303030;
-            --ui-choice-box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
-            --ui-glow-filter: drop-shadow(0 0 5px #778ba6);
-            --ui-blur-filter: none; /* Removed blur from here, applies to choice-box */
-			--header-font-family: 'Avengers', cursive;
-			--button-font-family: 'Avengers', cursive;
-            
-        }
-		
-		
-
-
-        /* General Body Styles */
-        body {
-            font-family: var(--ui-font-family); /* Use theme variable */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            overflow-y: auto; /* Allow scrolling if content overflows vertically */
-            overflow-x: hidden; /* Prevent horizontal scrolling */
-            padding: 10px; /* Add some padding to body to ensure game container doesn't touch edges */
-            box-sizing: border-box; /* Include padding in element's total width and height */
-
-            /* Apply CSS variables */
-            background: var(--body-background);
-            background-size: var(--body-background-size);
-            background-position: var(--body-background-position);
-            background-repeat: var(--body-background-repeat);
-            color: var(--text-color);
-            text-shadow: var(--text-shadow);
-            transition: background 0.7s ease-in-out, color 0.7s ease-in-out, text-shadow 0.7s ease-in-out, font-family 0.7s ease-in-out; /* Smooth transition for background and font */
-        }
-
-        /* Game Container */
-        .game-container {
-            border-radius: var(--ui-border-radius-cards); /* Use theme variable */
-            padding: 30px;
-            text-align: center;
-            width: 95%; /* Use a slightly larger percentage */
-            max-width: 550px;
-            /* animation: fadeIn 1s ease-out; Removed initial fade-in from here */
-            position: relative;
-            overflow: hidden;
+        /* Global Box-Sizing for consistent layout */
+        * {
             box-sizing: border-box;
-            min-height: 500px;
+        }
+
+        /* CSS Variables for Themes */
+        :root {
+            /* Original Theme */
+            --bg-primary: #1a202c;
+            --bg-secondary: #2d3748;
+            --text-light: #e2e8f0;
+            --text-muted: #a0aec0;
+            --accent-green: #6ee7b7;
+            --accent-dark-green: #4ade80;
+            --accent-button-bg: #22c55e;
+            --accent-button-hover-bg: #16a34a;
+            --logo-color: #ffcc00;
+            --logo-shadow: #4a008a;
+            --home-gradient-start: #1e3a8a;
+            --home-gradient-end: #5b21b6;
+            --border-color: #4a5568;
+            --card-border: #6ee7b7;
+            --link-color: #4ade80;
+            --link-hover-color: #86efac;
+            --sponsor-color: #6ee7b7;
+            --sponsor-shadow: #1a202c;
+            --hamburger-color: #6ee7b7;
+        }
+
+        /* Theme 1: Purplish Golden and Green (inspired by wordgame.html) */
+        body.theme-1 {
+            --bg-primary: #1c0f20;
+            --bg-secondary: #2e1a38;
+            --text-light: #f0e68c; /* Khaki/Golden */
+            --text-muted: #b0a0c0;
+            --accent-green: #7cfc00; /* Lawn Green */
+            --accent-dark-green: #7cfc00;
+            --accent-button-bg: #8a2be2; /* Blue Violet */
+            --accent-button-hover-bg: #6a0dad; /* Darker Blue Violet */
+            --logo-color: #ffd700; /* Gold */
+            --logo-shadow: #800080; /* Purple */
+            --home-gradient-start: #4b0082; /* Indigo */
+            --home-gradient-end: #8a2be2; /* Blue Violet */
+            --border-color: #5a3c68;
+            --card-border: #ffd700;
+            --link-color: #ffd700;
+            --link-hover-color: #ffeb80;
+            --sponsor-color: #7cfc00;
+            --sponsor-shadow: #1c0f20;
+            --hamburger-color: #ffd700;
+        }
+
+        /* Theme 3: Funky and Cool as Ice */
+        body.theme-3 {
+            --bg-primary: #0a192f; /* Deep blue */
+            --bg-secondary: #172a45; /* Slightly lighter blue */
+            --text-light: #e6f1ff; /* Light blue-white */
+            --text-muted: #8892b0; /* Gray-blue */
+            --accent-green: #64ffda; /* Aqua/Cyan */
+            --accent-dark-green: #64ffda;
+            --accent-button-bg: #00bcd4; /* Cyan */
+            --accent-button-hover-bg: #00838f; /* Darker Cyan */
+            --logo-color: #00f0ff; /* Electric blue */
+            --logo-shadow: #0056b3; /* Dark blue */
+            --home-gradient-start: #007bff; /* Bright blue */
+            --home-gradient-end: #3366ff; /* Medium blue */
+            --border-color: #305f82;
+            --card-border: #64ffda;
+            --link-color: #64ffda;
+            --link-hover-color: #90f0ff;
+            --sponsor-color: #00f0ff;
+            --sponsor-shadow: #0a192f;
+            --hamburger-color: #64ffda;
+        }
+
+
+        /* Body & Global Elements */
+        body {
+            font-family: 'Radio Canada Big', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease; /* Smooth theme transition */
+        }
+
+        .font-press-start {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .font-radio-canada {
+            font-family: 'Radio Canada Big', sans-serif;
+        }
+
+        /* Header Section */
+        .header-bg {
+            background-color: var(--bg-secondary);
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            position: fixed;
+            width: 100%;
+            z-index: 50;
+            padding: 1rem 2rem; /* Adjusted padding for more space on sides */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+        }
+
+        .header-logo {
+            font-size: clamp(1.5rem, 5vw, 1.875rem);
+            color: var(--logo-color);
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+            text-shadow: 4px 4px var(--logo-shadow);
+        }
+
+        .header-logo:hover {
+            color: var(--logo-color); /* Kept consistent with theme color */
+            filter: brightness(1.2); /* Slightly brighter on hover */
+        }
+
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: none;
+            gap: 2rem;
+            padding-left: 1rem; /* Added for extra safety margin */
+            padding-right: 1rem; /* Added for extra safety margin */
+        }
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex;
+            }
+        }
+
+        .desktop-nav a {
+            font-size: 1.125rem;
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .desktop-nav a:hover {
+            color: var(--link-hover-color);
+        }
+
+        /* Hamburger Menu Icon */
+        .hamburger-icon-wrapper {
+            display: block;
+        }
+        @media (min-width: 768px) {
+            .hamburger-icon-wrapper {
+                display: none;
+            }
+        }
+
+        .hamburger-icon {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            margin: auto; /* Center the container horizontally with auto margins */
-
-            /* Apply CSS variables */
-            background-color: var(--container-background);
-            border: var(--container-border);
-            box-shadow: var(--container-box-shadow);
-            /* Updated backdrop-filter logic */
-            backdrop-filter: var(--game-container-backdrop-filter);
-            -webkit-backdrop-filter: var(--game-container-backdrop-filter); /* For Safari compatibility */
-            transition: background-color 0.7s ease-in-out, border-color 0.7s ease-in-out, box-shadow 0.7s ease-in-out, backdrop-filter 0.7s ease-in-out, height 0.5s ease-in-out, width 0.5s ease-in-out, border-radius 0.7s ease-in-out; /* Added height, width, and border-radius transitions */
-        }
-        /* Apply blur to choice boxes in specific themes */
-        body.theme-minecraft .choice-box,
-        body.theme-batman .choice-box {
-            backdrop-filter: blur(2px); /* Subtle blur for these themes */
-            -webkit-backdrop-filter: blur(2px);
-        }
-        body.theme-blurred-reality .choice-box {
-            backdrop-filter: blur(5px); /* Stronger blur for Blurred Reality choices */
-            -webkit-backdrop-filter: blur(5px);
-        }
-
-
-        /* Title */
-        h1 {
-            font-family: var(--header-font-family); /* Use theme variable */
-            margin-bottom: 20px;
-            font-size: 2em;
-            letter-spacing: 2px;
-            word-break: break-word; /* Allow title to break words if too long */
-            filter: var(--ui-glow-filter); /* Apply glow */
-
-            /* Apply CSS variables */
-            color: var(--title-color);
-            text-shadow: var(--title-text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out, font-family 0.7s ease-in-out, filter 0.7s ease-in-out;
-        }
-
-        /* Game Screens Area - Holds all individual screens */
-        .game-screen-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            flex-grow: 1;
-            position: relative; /* Needed for absolute positioning of screens for transitions */
-            overflow: hidden; /* Hide overflow during transitions */
-            min-height: 300px; /* A minimum height for the screen area */
-        }
-
-        /* General Screen styles for transitions */
-        .screen {
-            position: absolute; /* Position screens on top of each other */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%; /* Ensure full height for transitions */
-            display: flex; /* Always flex, hide with opacity */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 0;
-            box-sizing: border-box;
-            flex-grow: 1;
-            gap: 15px;
-
-            opacity: 0;
-            transform: scale(0.95); /* Start slightly zoomed out for new screens */
-            pointer-events: none; /* Disable interaction when not active */
-            /* The transition property for screens will be managed by JavaScript based on animationsEnabled */
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-        }
-        /* Class to disable screen transitions specifically */
-        .screen.no-transition {
-            transition: none !important;
-        }
-
-        .screen.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto; /* Enable interaction when active */
-            position: relative; /* Active screen takes up space */
-            height: auto; /* Allow height to adjust to content */
-            min-height: 100%; /* Ensure it fills parent height if content is short */
-        }
-        
-        /* Hidden screens are absolutely positioned so they don't take up space */
-        .game-screen-area > .screen:not(.active) {
-            position: absolute;
-            height: 100%; /* Maintain height for smooth transition off-screen */
-        }
-
-
-        /* Buttons */
-        .btn {
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            background: none;
             border: none;
-            padding: 12px 25px;
-            border-radius: var(--ui-border-radius-buttons); /* Use theme variable */
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: var(--ui-button-shadow); /* Use theme variable */
-            font-family: var(--button-font-family); /* Use theme variable */
-            letter-spacing: 1px;
-            text-align: center; /* Center text within the button */
-            word-break: break-word; /* Allow words to break if they are too long */
-            min-width: 120px; /* Ensure a minimum width for buttons */
-            line-height: 1.5; /* 1.5 times the font size */
-
-            /* Apply CSS variables */
-            background-color: var(--primary-btn-bg);
-            color: var(--primary-btn-color);
-            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease, border-radius 0.7s ease-in-out, box-shadow 0.7s ease-in-out, font-family 0.7s ease-in-out;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-btn-hover-bg);
-            transform: var(--ui-button-hover-transform); /* Use theme variable */
-        }
-
-        .btn:active {
-            transform: var(--ui-button-active-transform); /* Use theme variable */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Default smaller shadow on active */
-        }
-
-        .btn-secondary {
-            background-color: var(--secondary-btn-bg);
-            color: var(--secondary-btn-color);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--secondary-btn-hover-bg);
-        }
-
-        .btn-danger {
-            background-color: var(--danger-btn-bg);
-            color: var(--danger-btn-color);
-        }
-
-        .btn-danger:hover {
-            background-color: var(--danger-btn-hover-bg);
-        }
-
-        /* Specific styles for the Quit Game button */
-        #quit-game-button {
-            margin-top: auto;
-            align-self: center;
-            padding: 10px 20px;
-            font-size: 1em;
-        }
-
-
-        /* Mode Selection Specific Styles */
-        .mode-options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 80%;
-            max-width: 300px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .mode-options-container .btn {
-            width: 100%; /* Make buttons fill the container width */
-            font-size: 1em;
-            padding: 12px 8px;
-        }
-
-        .mode-selection-screen-text {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            line-height: 1.4;
-            max-width: 90%;
-            text-align: center;
-            word-break: break-word;
-
-            /* Apply CSS variables */
-            color: var(--title-color); /* Using title color for this text */
-            text-shadow: var(--title-text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out;
-        }
-        /* Adjusted margin for back button in mode selection */
-        #mode-selection-screen #back-to-main-button {
-            margin-top: 25px;
-        }
-
-        /* Start Screen specific */
-        #start-screen p {
-            margin-bottom: 25px;
-            font-size: 1.1em;
-            line-height: 1.5;
-            text-align: center;
-            word-break: break-word;
-        }
-        /* New styles for the additional buttons on start screen */
-        .start-screen-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 80%;
-            max-width: 300px;
-            margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .start-screen-buttons .btn {
-            width: 100%;
-        }
-
-
-        /* Game UI */
-        #word-display, #arcade-hint { /* Added arcade-hint */
-            font-size: 2.8em;
-            font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 25px;
-            min-height: 1.5em;
-            font-family: var(--header-font-family); /* Use theme variable */
-            word-wrap: break-word;
-            word-break: break-word; /* Added for better compatibility */
-            text-align: center;
-            filter: var(--ui-glow-filter); /* Apply glow */
-
-            /* Apply CSS variables */
-            color: var(--word-display-color);
-            text-shadow: var(--word-display-text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out, font-family 0.7s ease-in-out, filter 0.7s ease-in-out;
-        }
-        #arcade-hint {
-            font-size: 1.2em;
-            margin-top: -15px; /* Pull it closer to word display */
-            margin-bottom: 10px;
-            color: var(--strong-color);
-            text-shadow: var(--text-shadow);
-        }
-        #wrong-answers-display { /* For Arcade mode */
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--danger-btn-bg);
-            text-shadow: var(--text-shadow);
-            margin-bottom: 10px;
-        }
-        #high-score-display { /* For Arcade mode */
-            font-size: 1.1em;
-            font-weight: bold;
-            color: var(--strong-color);
-            text-shadow: var(--text-shadow);
-            margin-bottom: 5px;
-        }
-
-
-        .choices-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Center items when they wrap */
-            gap: 15px;
-            margin-top: 15px;
-            width: 100%;
-            min-width: 260px;
-            margin-bottom: 25px;
-        }
-
-        .choice-box {
-            border-radius: var(--ui-border-radius-cards); /* Use theme variable */
-            padding: 15px 12px;
-            font-size: 1.3em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, border-radius 0.7s ease-in-out;
-            flex: 1 1 150px; /* Allow boxes to grow and shrink, with a preferred basis */
-            min-width: 110px;
-            max-width: 180px; /* Keep a max width to prevent boxes from becoming too wide */
-            height: auto; /* Allow height to adjust based on content */
-            min-height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: var(--ui-choice-box-shadow); /* Use theme variable */
-            text-align: center;
-            word-wrap: break-word;
-            word-break: break-word; /* Added for better compatibility */
-            filter: var(--ui-glow-filter); /* Apply glow */
-
-
-            /* Apply CSS variables */
-            background-color: var(--choice-box-bg);
-            border: var(--choice-box-border);
-            color: var(--text-color);
-            transition: background-color 0.7s ease-in-out, border-color 0.7s ease-in-out, color 0.7s ease-in-out, filter 0.7s ease-in-out, backdrop-filter 0.7s ease-in-out;
-        }
-
-        .choice-box:hover {
-            background-color: var(--ui-choice-box-hover-bg); /* Use theme variable */
-            transform: translateY(-3px);
-        }
-
-        .choice-box.correct {
-            background-color: #28a745;
-            border-color: #218838;
-            animation: pulseGreen 0.5s ease-out;
-        }
-
-        .choice-box.wrong {
-            background-color: #dc3545;
-            border-color: #c82333;
-            animation: shake 0.5s ease-out;
-        }
-
-        #score-turn-container {
-            width: 100%;
-            padding: 0 8px;
-            box-sizing: border-box;
-            display: flex; /* Use flexbox for score and turn */
-            justify-content: space-between; /* Space out score and turn */
-            align-items: center;
-        }
-
-        #score-display, #turn-display, #player-score-display { /* Added player-score-display */
-            font-size: 1.3em;
-            font-weight: bold;
-
-            /* Apply CSS variables */
-            color: var(--title-color); /* Using title color for score/turn */
-            text-shadow: var(--title-text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out;
-        }
-        #player-score-display {
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
-
-        /* End Screen */
-        #end-screen .btn {
-            margin-top: 25px;
-        }
-        #final-score {
-            font-size: 2.8em;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-family: var(--header-font-family); /* Use theme variable */
-            word-break: break-word;
-            filter: var(--ui-glow-filter); /* Apply glow */
-
-
-            /* Apply CSS variables */
-            color: var(--final-score-color);
-            text-shadow: var(--final-score-text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out, font-family 0.7s ease-in-out, filter 0.7s ease-in-out;
-        }
-        #final-message {
-            font-size: 1.6em;
-            margin-bottom: 25px;
-            word-break: break-word;
-
-            /* Apply CSS variables */
-            color: var(--text-color);
-            text-shadow: var(--text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out;
-        }
-        #two-player-results {
-            font-size: 1.4em;
-            margin-bottom: 15px;
-            color: var(--text-color);
-            text-shadow: var(--text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out;
-        }
-        #high-score-at-end {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: var(--strong-color);
-            text-shadow: var(--text-shadow);
-            margin-top: 10px;
-        }
-
-
-        /* Confirmation Screen Specific */
-        .confirmation-screen p {
-            font-size: 1.4em;
-            margin-bottom: 25px;
-            text-align: center;
-            word-break: break-word;
-
-            /* Apply CSS variables */
-            color: var(--text-color);
-            text-shadow: var(--text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out;
-        }
-
-        .confirmation-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap; /* Allow buttons to wrap */
-            justify-content: center; /* Center buttons when they wrap */
-        }
-        .confirmation-buttons .btn {
-             margin-top: 0;
-             flex: 1 1 120px; /* Allow buttons to grow/shrink with a basis */
-             max-width: 180px; /* Max width for confirmation buttons */
-        }
-
-        /* Mode Info Screen & Offline Screen & Options Screen Headings */
-        #mode-info-screen h2, #offline-screen h2, #options-screen h2 {
-            font-family: var(--header-font-family); /* Use theme variable */
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            word-break: break-word;
-            filter: var(--ui-glow-filter); /* Apply glow */
-
-
-            /* Apply CSS variables */
-            color: var(--heading-color);
-            text-shadow: var(--heading-text-shadow);
-            transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out, font-family 0.7s ease-in-out, filter 0.7s ease-in-out;
-        }
-
-        /* Mode Info Screen & Offline Screen & Options Screen Paragraphs */
-        #mode-info-screen p, #offline-screen p, #options-screen p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            text-align: center;
-            max-width: 100%;
-            word-break: break-word;
-
-            /* Apply CSS variables */
-            color: var(--text-color);
-            transition: color 0.7s ease-in-out;
-        }
-
-        #mode-info-screen ul {
-            text-align: left;
-            list-style: none;
             padding: 0;
-            margin-bottom: 20px;
-            max-width: 90%; /* Limit list width */
-            margin-left: auto; /* Center the list */
-            margin-right: auto;
-        }
-
-        #mode-info-screen ul li {
-            margin-bottom: 8px;
-            font-size: 1.1em;
-
-            /* Apply CSS variables */
-            color: var(--text-color);
-            transition: color 0.7s ease-in-out;
-        }
-
-        #mode-info-screen ul li strong {
-            /* Apply CSS variables */
-            color: var(--strong-color);
-            transition: color 0.7s ease-in-out;
-        }
-
-        #mode-info-screen ul li:before {
-            content: "• ";
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-
-            /* Apply CSS variables */
-            color: var(--bullet-color);
-            transition: color 0.7s ease-in-out;
-        }
-
-        /* Theme indicator */
-        #current-theme-indicator {
-            font-size: 0.9em;
-            margin-top: -5px;
-            margin-bottom: 15px;
-            color: var(--strong-color);
-            text-shadow: var(--text-shadow);
-        }
-
-        /* Sound volume controls */
-        .volume-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-            text-align: center;
-        }
-        /* Sliders are removed, so these styles are no longer relevant */
-        /* .volume-slider {
-            width: 80%;
-            margin: 0 auto;
-            -webkit-appearance: none;
-            appearance: none;
-            height: 8px;
-            border-radius: 5px;
-            background: #d3d3d3;
             outline: none;
-            opacity: 0.7;
-            transition: opacity .2s;
+            z-index: 60;
+            position: relative; /* Ensures it's positioned correctly within flex context */
         }
-        .volume-slider:hover {
-            opacity: 1;
+        .hamburger-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--hamburger-color);
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
         }
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--primary-btn-bg);
-            cursor: pointer;
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        .hamburger-icon.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
         }
-        .volume-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--primary-btn-bg);
-            cursor: pointer;
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
-        } */
+        .hamburger-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-icon.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
 
-        /* Animations */
+        /* Mobile Navigation Menu */
+        .mobile-nav {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            background-color: var(--bg-secondary);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            border-left: 2px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: min(256px, 85vw); /* Responsive width for mobile menu */
+            padding-top: 5rem;
+            z-index: 40;
+            overflow-y: auto; /* Enable scrolling for long menus */
+        }
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+        .mobile-nav a {
+            color: var(--link-color);
+            padding: 1rem;
+            display: block;
+            text-align: center;
+            border-bottom: 1px dashed var(--border-color);
+            transition: background-color 0.2s, color 0.2s;
+            text-decoration: none;
+            font-size: clamp(1rem, 4vw, 1.125rem); /* Dynamic font size for mobile menu items */
+        }
+        .mobile-nav a:hover {
+            background-color: var(--border-color);
+            color: var(--link-hover-color);
+        }
+
+        /* Main Content Container */
+        .main-content {
+            padding-top: 6rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 3rem 1rem;
+            margin-bottom: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--border-color);
+            animation: fadeIn 1s ease-out;
+            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        /* Home Section: Opening Text */
+        #home {
+            text-align: center;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            background: linear-gradient(to bottom right, var(--home-gradient-start), var(--home-gradient-end));
+            color: var(--text-light);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: background 0.5s ease;
         }
 
-        @keyframes pulseGreen {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
+        #home h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            animation: pulse-slow 2s infinite ease-in-out;
+            transition: opacity 0.5s ease-in-out, color 0.5s ease-in-out; /* Keep transitions for general use */
         }
 
-        /* Confetti Effect (Simple Circles) */
-        .confetti {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: #ffcc00;
-            border-radius: 50%;
-            opacity: 0;
-            animation: fadeOutUp 2s forwards;
-            z-index: 100;
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
 
-        .confetti:nth-child(2n) { background-color: #00FF7F; animation-delay: 0.2s; }
-        .confetti:nth-child(3n) { background-color: #E100FF; animation-delay: 0.4s; }
-        .confetti:nth-child(4n) { background-color: #7F00FF; animation-delay: 0.6s; }
-
-        @keyframes fadeOutUp {
-            0% { opacity: 1; transform: translateY(0) rotate(0deg); }
-            100% { opacity: 0; transform: translateY(-400px) rotate(720deg); }
+        #home p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-light); /* Changed to text-light */
+            transition: color 0.5s ease;
         }
 
-        /* Timer Bar */
-        #timer-bar-container {
-            width: 100%;
-            height: 12px;
-            background-color: #555;
-            border-radius: 6px;
-            margin-top: 15px;
+        /* Section Headings */
+        section h2 {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--accent-dark-green);
+            transition: color 0.5s ease;
+        }
+
+        /* Games Section Grid */
+        #games .games-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            #games .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            #games .games-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Game Card Styling */
+        .game-card {
+            background-color: var(--bg-primary);
+            border: 2px solid var(--card-border);
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.5s ease, background-color 0.5s ease;
         }
-
-        #timer-bar {
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(110, 231, 183, 0.4); /* This shadow color remains fixed for a glowing effect */
+        }
+        .game-card img {
             width: 100%;
-            height: 100%;
-            border-radius: 6px;
-            /* Timer bar transition is always active */
-            transition: width linear, background-color 0.7s ease-in-out; 
-
-            /* Apply CSS variables */
-            background-color: var(--timer-bar-bg);
+            height: 12rem;
+            object-fit: cover;
+            border-bottom: 2px solid var(--card-border);
+            transition: border-color 0.5s ease;
+        }
+        .game-card-content {
+            padding: 1.5rem;
+        }
+        .game-card-title {
+            color: var(--accent-green);
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(1rem, 4vw, 1.25rem);
+            margin-bottom: 0.5rem;
+            transition: color 0.5s ease;
+        }
+        .game-card p {
+            color: var(--text-light); /* Changed to text-light */
+            font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+            transition: color 0.5s ease;
+        }
+        .game-card button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-button-bg);
+            color: var(--text-light);
+            font-weight: bold;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, color 0.5s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .game-card button.learn-more-btn {
+            font-family: 'Radio Canada Big', sans-serif; /* Apply Radio Canada font */
+        }
+        .game-card button:hover {
+            background-color: var(--accent-button-hover-bg);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* --- Responsive Adjustments (Media Queries) --- */
-        @media (max-width: 768px) { /* Tablets and smaller */
-            .game-container {
-                padding: 20px;
-                min-height: 450px;
+        /* News Section Grid */
+        #news .news-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            #news .news-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            h1 {
-                font-size: 1.6em;
-            }
-            #word-display, #arcade-hint {
-                font-size: 2em;
-            }
-            .btn {
-                padding: 10px 20px;
-                font-size: 1.1em;
-                min-width: 100px; /* Adjust min-width for smaller screens */
-            }
-             .mode-options-container .btn,
-             .start-screen-buttons .btn {
-                 padding: 10px 6px; /* Adjust padding for mode/start buttons */
-             }
-            .choice-box {
-                font-size: 1.1em;
-                padding: 12px 8px;
-                min-height: 55px;
-                flex-basis: calc(50% - 10px); /* Two columns on smaller screens */
-                max-width: calc(50% - 10px);
-            }
-            .choices-container {
-                 gap: 10px; /* Adjust gap for two columns */
-            }
-            #score-display, #turn-display, #player-score-display {
-                font-size: 1.1em;
-            }
-            #final-score {
-                font-size: 2.2em;
-            }
-            #final-message {
-                font-size: 1.4em;
-            }
-            #two-player-results {
-                font-size: 1.2em;
-            }
-            #high-score-at-end {
-                font-size: 1.1em;
-            }
-            #arcade-hint {
-                font-size: 1.1em;
-            }
-            #wrong-answers-display {
-                font-size: 1.1em;
-            }
-            #high-score-display {
-                font-size: 1em;
-            }
-            .mode-options-container .btn {
-                font-size: 0.95em;
-            }
-            .confirmation-screen p {
-                font-size: 1.2em;
-            }
-            #quit-game-button {
-                padding: 8px 18px;
-            }
-             #mode-info-screen h2, #offline-screen h2, #options-screen h2 {
-                font-size: 1.5em;
-            }
-            #mode-info-screen p, #mode-info-screen ul li, #offline-screen p, #options-screen p {
-                font-size: 1em;
-            }
-            .confirmation-buttons .btn {
-                 flex-basis: calc(50% - 10px); /* Two columns for confirmation buttons */
-                 max-width: calc(50% - 10px);
-            }
-             .confirmation-buttons {
-                 gap: 10px; /* Adjust gap */
-             }
         }
 
-        @media (max-width: 480px) { /* Phones */
-            .game-container {
-                padding: 12px;
-                border-radius: 12px;
-                min-height: 400px;
-            }
-            h1 {
-                font-size: 1.3em;
-                margin-bottom: 12px;
-            }
-            #word-display, #arcade-hint {
-                font-size: 1.6em;
-                margin-bottom: 15px;
-            }
-            .btn {
-                padding: 8px 15px;
-                font-size: 0.9em;
-                min-width: unset; /* Remove min-width on very small screens */
-            }
-            .choices-container {
-                gap: 8px;
-            }
-            .choice-box {
-                flex-basis: calc(50% - 8px); /* Two columns on small screens, adjust for gap */
-                max-width: calc(50% - 8px);
-                font-size: 0.9em;
-                padding: 8px;
-                min-height: 45px;
-            }
-            #score-display, #turn-display, #player-score-display {
-                font-size: 0.9em;
-                margin-top: 12px;
-            }
-            #final-score {
-                font-size: 1.8em;
-            }
-            #final-message {
-                font-size: 1.1em;
-            }
-            #two-player-results {
-                font-size: 1em;
-            }
-            #high-score-at-end {
-                font-size: 0.9em;
-            }
-            #arcade-hint {
-                font-size: 1em;
-            }
-            #wrong-answers-display {
-                font-size: 0.9em;
-            }
-            #high-score-display {
-                font-size: 0.8em;
-            }
-            .mode-options-container .btn,
-            .start-screen-buttons .btn {
-                font-size: 0.85em;
-                padding: 10px 6px;
-            }
-            .confirmation-screen p {
-                font-size: 1em;
-            }
-            #quit-game-button {
-                padding: 6px 12px;
-                font-size: 0.8em;
-            }
-            #mode-info-screen h2, #offline-screen h2, #options-screen h2 {
-                font-size: 1.2em;
-            }
-            #mode-info-screen p, #mode-info-screen ul li, #offline-screen p, #options-screen p {
-                font-size: 0.9em;
-            }
-             .confirmation-buttons .btn {
-                 flex-basis: 100%; /* Stack confirmation buttons on very small screens */
-                 max-width: 100%;
-             }
-             .confirmation-buttons {
-                 gap: 8px; /* Adjust gap */
-             }
+        /* News Item Styling */
+        .news-item {
+            background-color: var(--bg-primary);
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, border-color 0.5s ease;
         }
-         @media (max-width: 320px) { /* Extra small phones */
-             .game-container {
-                 padding: 8px;
-             }
-             h1 {
-                 font-size: 1.1em;
-             }
-             #word-display, #arcade-hint {
-                 font-size: 1.4em;
-             }
-             .btn {
-                 font-size: 0.8em;
-                 padding: 6px 10px;
-             }
-              .mode-options-container .btn,
-             .start-screen-buttons .btn {
-                 font-size: 0.8em;
-                 padding: 8px 4px;
-             }
-             .choice-box {
-                 font-size: 0.8em;
-                 padding: 6px;
-                 min-height: 40px;
-             }
-             #score-display, #turn-display, #player-score-display {
-                 font-size: 0.8em;
-             }
-             #final-score {
-                 font-size: 1.6em;
-             }
-             #final-message {
-                 font-size: 1em;
-             }
-             #two-player-results {
-                font-size: 0.9em;
-             }
-             #high-score-at-end {
-                font-size: 0.8em;
-             }
-             #arcade-hint {
-                font-size: 0.9em;
-             }
-             #wrong-answers-display {
-                font-size: 0.8em;
-             }
-             #high-score-display {
-                font-size: 0.7em;
-             }
-             .confirmation-screen p {
-                 font-size: 0.9em;
-             }
-             #quit-game-button {
-                 font-size: 0.7em;
-                 padding: 4px 8px;
-             }
-             #mode-info-screen h2, #offline-screen h2, #options-screen h2 {
-                 font-size: 1em;
-             }
-             #mode-info-screen p, #mode-info-screen ul li, #offline-screen p, #options-screen p {
-                 font-size: 0.8em;
-             }
-             .confirmation-buttons .btn {
-                 flex-basis: 100%; /* Stack confirmation buttons on very small screens */
-                 max-width: 100%;
-             }
-             .confirmation-buttons {
-                 gap: 8px; /* Adjust gap */
-             }
-         }
+        .news-item:hover {
+            background-color: var(--bg-secondary);
+        }
+        .news-date {
+            color: var(--text-muted); /* Kept as text-muted */
+            font-size: clamp(0.7rem, 2.5vw, 0.875rem);
+            transition: color 0.5s ease;
+        }
+        .news-topic {
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: clamp(1rem, 3.5vw, 1.125rem);
+            margin-top: 0.5rem;
+            margin-bottom: 0.75rem;
+            transition: color 0.5s ease;
+        }
+        .news-item p {
+            color: var(--text-light); /* Changed to text-light */
+            font-size: clamp(0.8rem, 2.8vw, 1rem);
+            transition: color 0.5s ease;
+        }
+
+        /* About Section */
+        #about {
+            text-align: center;
+            background: linear-gradient(to bottom right, var(--home-gradient-start), var(--home-gradient-end));
+            color: var(--text-light);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: background 0.5s ease;
+        }
+
+        #about h2 {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            color: var(--accent-dark-green); /* Changed to accent-dark-green */
+            transition: color 0.5s ease;
+        }
+
+        #about .about-logo-main { /* Main "2simply" text */
+            font-size: clamp(2rem, 8vw, 4rem);
+            line-height: 1.2;
+            color: var(--logo-color);
+            text-shadow: 4px 4px var(--logo-shadow);
+            margin-bottom: 0; /* Remove bottom margin to bring "GAMES" closer */
+        }
+
+        #about .about-logo-sub { /* "GAMES" text */
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(0.8rem, 3vw, 1.2rem); /* Smaller than main logo */
+            letter-spacing: 0.2em; /* Spaced out letters */
+            color: var(--logo-color); /* Changed to match logo color */
+            margin-top: 0.5rem; /* Small margin from 2simply */
+            text-shadow: 2px 2px var(--logo-shadow); /* Subtle shadow like the main logo */
+            text-transform: uppercase; /* Ensure it's always uppercase */
+            display: block; /* Ensure it's on its own line */
+            margin-bottom: 2rem; /* Restore margin for overall section spacing */
+        }
+
+        #about p {
+            font-size: clamp(0.9rem, 3vw, 1.25rem);
+            color: var(--text-light); /* Changed to text-light */
+            max-width: 768px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: color 0.5s ease;
+        }
+
+        /* Sponsor Section */
+        .sponsor-section {
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--border-color);
+            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .sponsor-section h3 {
+            color: var(--text-muted); /* Kept as text-muted */
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            margin-bottom: 1rem;
+            transition: color 0.5s ease;
+        }
+
+        .sponsor-section a {
+            font-family: 'Radio Canada', sans-serif;
+            font-size: clamp(2.5rem, 10vw, 4rem);
+            font-weight: bold;
+            color: var(--sponsor-color);
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+            text-shadow: 3px 3px var(--sponsor-shadow);
+        }
+
+        .sponsor-section a:hover {
+            color: var(--link-hover-color); /* Using a general link hover color */
+            text-shadow: 5px 5px var(--sponsor-shadow);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-primary);
+            border-top: 2px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            color: var(--text-light); /* Changed to text-light */
+            font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+            transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+        }
+
+        footer span {
+            color: #ef4444; /* Fixed heart color */
+        }
     </style>
 </head>
 <body>
-    <div class="game-container" id="game-container">
-        <h1 id="game-title">Word Ddakji: Flip Modes!</h1>
+    <header class="header-bg">
+        <a href="#home" class="header-logo font-press-start" aria-label="2simply Home">
+            2simply
+        </a>
 
-        <div class="game-screen-area">
-            <div id="start-screen" class="screen active">
-                <p>
-                    Welcome to Word Ddakji! Test your vocabulary and speed.
-                    Choose a mode and try to get most correct answers!
-                </p>
-                <div class="start-screen-buttons">
-                    <button id="play-button" class="btn">PLAY GAME</button>
-                    
-                    <button id="options-button" class="btn">OPTIONS</button>
-                    <button id="offline-button" class="btn">OFFLINE</button>
-                    <button id="mode-info-button" class="btn btn-secondary">ABOUT</button>
-                    <button id="linky-button" class="btn btn-secondary">BACK TO 2SIMPLY GAMES</button>
-                </div>
-            </div>
+        <nav class="desktop-nav">
+            <a href="#home">Home</a>
+            <a href="#games">Games</a>
+            <a href="#news">News</a>
+            <a href="#about">About</a>
+            <a href="#" id="desktop-themes-toggle">Themes</a>
+        </nav>
 
-            <div id="mode-selection-screen" class="screen">
-                <p class="mode-selection-screen-text">Choose Your Mode:</p>
-                <div class="mode-options-container">
-                    <button id="antonym-mode-button" class="btn">ANTONYM MODE</button>
-                    <button id="synonym-mode-button" class="btn">SYNONYM MODE</button>
-                    <button id="pair-play-mode-button" class="btn">PAIR-PLAY MODE</button>
-                    <button id="arcade-mode-button" class="btn">ARCADE MODE</button>
-                    <button id="two-player-mode-button" class="btn">2 PLAYER MODE</button>
-                </div>
-                <button id="back-to-main-button" class="btn btn-secondary">BACK TO MAIN</button>
-            </div>
-
-            <div id="two-player-sub-mode-selection-screen" class="screen">
-                <h2>2 Player Mode</h2>
-                <p>Choose the word type for your 2-player game:</p>
-                <div class="mode-options-container">
-                    <button id="two-player-antonym-button" class="btn">ANTONYM</button>
-                    <button id="two-player-synonym-button" class="btn">SYNONYM</button>
-                </div>
-                <button id="back-to-mode-selection-button" class="btn btn-secondary">BACK</button>
-            </div>
-
-
-            <div id="mode-info-screen" class="screen">
-                <h2>v1.0.1</h2>
-                <p>Try the most simple but fun word game!</p>
-                <uln>
-                    <lin><strong></strong></lin>
-                    <lin><strong></strong></lin>
-                </uln>
-                <p>NOTE: This game may contain bugs, we are trying our best to fix it. If you have any concerns, please contact us. Sorry for the inconvenience.<br><br><strong>What's new in - v1.0.1</strong><br><br>The most exciting update for Word Ddakji!<br><br>- Initial full release!<br>- Added 3 new game modes.<br>- Added new sound effects, exciting themes with a full overhaul!
-                <br><br><strong>Credits</strong><br><br>
-                - Wallpapers/Backgrounds from wallpapers.com, WallpaperCave, WallpaperCat and Google.<br>
-                - Fonts from Google Fonts, DaFont and font.download.<br>
-                - Sounds from Pixabay, freesound.org, minecraft.wiki, MixKit and SoundInstants.<br><br>
-                The content used in this game belong to their respective owners/creators, which are free of charge and licensed.
-                
-                <br><br><strong>©2simply Games. All rights reserved.</strong></p>
-                <button id="back-from-info-button" class="btn btn-secondary">BACK</button>
-            </div>
-
-            <div id="offline-screen" class="screen">
-                <h2>Play Offline</h2>
-                <p>Play Word Ddakji anytime/anywhere, even when you are offline!</p><a href="https://github.com/AltroWeb/altroweb.github.io/releases/download/resources/WordDdakji_signed.apk">Download Android APK</a>
-               <br> <button id="back-from-offline-button" class="btn btn-secondary">BACK</button>
-            </div>
-
-            <div id="options-screen" class="screen">
-                <h2>Game Options</h2>
-                <p>Customize your game experience!</p>
-                <div class="mode-options-container"> 
-                    <p>Change UI Theme:</p>
-                    <button id="change-theme-button" class="btn">CYCLE THEMES</button>
-                    <p id="current-theme-indicator">Theme: Default</p> <!-- Theme indicator -->
-                    <p>Number of Turns:</p>
-                    <button id="toggle-turns-button" class="btn">TURNS: 5</button>
-                    <p>UI Animations:</p>
-                    <button id="toggle-animations-button" class="btn">ANIMATIONS: ON</button>
-
-                    <!-- Updated Sound Controls -->
-                    <p>Sound Effects Volume:</p>
-                    <button id="cycle-sfx-volume-button" class="btn">SFX: 100</button>
-                    <p id="cycle-bgm-text">Background Music Volume:</p>
-                    <button id="cycle-bgm-volume-button" class="btn">BGM: ON</button> <!-- Combines volume and on/off -->
-                    
-                    <p>Reset all settings and high scores:</p>
-                    <button id="reset-settings-button" class="btn btn-danger">RESET SETTINGS</button>
-                </div><br>
-                <button id="back-from-options-button" class="btn btn-secondary">BACK</button>
-            </div>
-
-            <div id="game-screen" class="screen">
-                <div id="score-turn-container">
-                    <div id="score-display">Score: 0/5</div>
-                    <div id="turn-display">Turn: 0/5</div>
-                </div>
-                <div id="player-score-display" style="display: none;"></div> <!-- For 2-player score -->
-                <div id="high-score-display" style="display: none;"></div> <!-- For Arcade High Score -->
-                <div id="wrong-answers-display" style="display: none;">Wrong Answers: 0/5</div> <!-- For Arcade Mode -->
-                <div id="timer-bar-container">
-                    <div id="timer-bar"></div>
-                </div>
-                <p id="word-display">Loading...</p>
-                <p id="arcade-hint" style="display: none;"></p> <!-- For Arcade mode hint -->
-                <div class="choices-container" id="choices-container">
-                </div>
-                <button id="quit-game-button" class="btn btn-danger">QUIT GAME</button>
-            </div>
-
-            <div id="quit-confirmation-screen" class="screen">
-                <p>Are you sure you want to quit the current game?</p>
-                <div class="confirmation-buttons">
-                    <button id="confirm-quit-button" class="btn btn-danger">YES, QUIT</button>
-                    <button id="cancel-quit-button" class="btn btn-secondary">NO, CONTINUE</button>
-                </div>
-            </div>
-
-            <div id="reset-confirmation-screen" class="screen">
-                <p>Are you sure you want to reset all settings and high scores?</p>
-                <div class="confirmation-buttons">
-                    <button id="confirm-reset-button" class="btn btn-danger">YES, RESET</button>
-                    <button id="cancel-reset-button" class="btn btn-secondary">NO, CANCEL</button>
-                </div>
-            </div>
-
-            <div id="end-screen" class="screen">
-                <p id="final-score">Your Score: 0/5</p>
-                <p id="high-score-at-end" style="display: none;"></p> <!-- For Arcade End High Score -->
-                <p id="two-player-results" style="display: none;"></p> <!-- For 2 Player Results -->
-                <p id="final-message">Too poor...</p>
-                <button id="restart-button" class="btn">PLAY AGAIN</button>
-            </div>
+        <div class="hamburger-icon-wrapper">
+            <button id="hamburger-button" class="hamburger-icon" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-    </div>
+    </header>
+
+    <nav id="mobile-menu" class="mobile-nav">
+        <a href="#home" onclick="toggleMobileMenu()">Home</a>
+        <a href="#games" onclick="toggleMobileMenu()">Games</a>
+        <a href="#news" onclick="toggleMobileMenu()">News</a>
+        <a href="#about" onclick="toggleMobileMenu()">About</a>
+        <a href="#" id="mobile-themes-toggle" onclick="toggleMobileMenu(); return false;">Themes</a> </nav>
+
+    <main class="main-content">
+        <section id="home">
+            <h1 class="font-press-start">
+                Simple games at the highest fun.
+            </h1>
+            <p>
+                Making stuff that is too simple, but with ultimate joy.
+            </p>
+        </section>
+
+        <section id="games">
+            <h2 class="font-press-start">Games</h2>
+            <div class="games-grid">
+            
+            
+            
+                <div class="game-card">
+                
+                    <img src="wordgame.png" alt="Word Ddakji">
+                    <div class="game-card-content">
+                        <h3 class="game-card-title">Word Ddakji: Flip Modes!</h3>
+                        <p>Just a word game. But more than you think!</p>
+                        <button class="learn-more-btn" onclick="window.open('wordgame', '_self');">
+                            Play Now
+                        </button>
+                    </div>
+                </div>
+                
+
+                <div class="game-card" style="display:none;">
+                    <img src="https://placehold.co/600x400/2d3748/6ee7b7?text=Space+Invaders+X" alt="Space Invaders X Game">
+                    <div class="game-card-content">
+                        <h3 class="game-card-title">Space Invaders X</h3>
+                        <p>A modern take on the arcade classic. Defend Earth from endless waves of alien invaders with enhanced graphics and new power-ups.</p>
+                        <button class="learn-more-btn" onclick="window.open('YOUR_URL_HERE', '_self');">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="game-card" style="display:none;">
+                    <img src="https://placehold.co/600x400/2d3748/6ee7b7?text=Pixel+Puzzles" alt="Pixel Puzzles Game">
+                    <div class="game-card-content">
+                        <h3 class="game-card-title">Pixel Puzzles</h3>
+                        <p>Challenge your mind with a collection of retro-inspired puzzle games. From block-matching to logic challenges, fun for all ages.</p>
+                        <button class="learn-more-btn" onclick="window.open('YOUR_URL_HERE', '_self');">
+                            Get It
+                        </button>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </section>
+
+        <section id="news">
+            <h2 class="font-press-start">Latest News</h2>
+            <div class="news-grid">
+              
+              <div class="news-item">
+                    <p class="news-date">13 June, 2025</p>
+                    <h3 class="news-topic">Word Ddakji 1.0.1 released!</h3>
+                    <p>
+                        New themes, sounds and game modes! First initial release that brings a lot of fun to Word ddakji.
+                    </p>
+                </div>
+              
+                <div class="news-item">
+                    <p class="news-date">26 May, 2025</p>
+                    <h3 class="news-topic">Offline version released for Word Ddakji!</h3>
+                    <p>
+                        Now play even when you are offline! Same fun, now available as Android APK.
+                    </p>
+                </div>
+
+                <div class="news-item">
+                    <p class="news-date">24 May, 2025</p>
+                    <h3 class="news-topic">Update 0.5.2 BETA released for Word Ddakji!</h3>
+                    <p>
+                      New options menu, new themes, more rounds, UI accessibility and more words! 
+                    </p>
+                </div>
+
+                <div class="news-item">
+                    <p class="news-date">20 May, 2025</p>
+                    <h3 class="news-topic">Word Ddakji Launched!</h3>
+                    <p>
+                        The simple yet fun game, now available! Answer the correct word; whether you are on Antonym or Synonym mode, before the timer runs out!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 class="font-press-start">About</h2>
+            <p class="about-logo-main font-press-start">
+                2simply
+            </p>
+            <p class="about-logo-sub font-press-start">
+                G A M E S
+            </p>
+            <p>
+                A team committed to make the most simple games on Earth, but with the fun everyone wants. 
+            </p>
+        </section>
+
+        <section class="sponsor-section">
+            <h3>Partner</h3>
+            <a href="https://altroweb.github.io/" target="_blank" class="font-radio-canada">
+                AltroWeb
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2simply Games. All rights reserved.<br>Made with <span>&hearts;</span></p>
+    </footer>
 
     <script>
-        // --- Game Data ---
-        const antonymList = [
-            { word: "HAPPY", antonym: "SAD", options: ["JOLLY", "GLAD", "SAD"] },
-            { word: "BIG", antonym: "SMALL", options: ["HUGE", "TINY", "SMALL"] },
-            { word: "HOT", antonym: "COLD", options: ["WARM", "COLD", "BOILING"] },
-            { word: "FAST", antonym: "SLOW", options: ["QUICK", "RAPID", "SLOW"] },
-            { word: "BRIGHT", antonym: "DIM", options: ["SHINY", "GLOWING", "DIM"] },
-            { word: "LIGHT", antonym: "HEAVY", options: ["EASY", "BRIGHT", "HEAVY"] },
-            { word: "OPEN", antonym: "CLOSED", options: ["AJAR", "CLOSED", "WIDE"] },
-            { word: "HARD", antonym: "SOFT", options: ["TOUGH", "RIGID", "SOFT"] },
-            { word: "RICH", antonym: "POOR", options: ["WEALTHY", "AFFLUENT", "POOR"] },
-            { word: "TALL", antonym: "SHORT", options: ["HIGH", "SHORT", "LONG"] },
-            { word: "TRUE", antonym: "FALSE", options: ["REAL", "FALSE", "GENUINE"] },
-            { word: "BEGIN", antonym: "END", options: ["START", "END", "COMMENCE"] },
-            { word: "WIN", antonym: "LOSE", options: ["SUCCEED", "LOSE", "TRIUMPH"] },
-            { word: "ABSENT", antonym: "PRESENT", options: ["GONE", "PRESENT", "MISSING"] },
-            { word: "ARRIVAL", antonym: "DEPARTURE", options: ["COMING", "DEPARTURE", "ENTRY"] },
-            { word: "ANCIENT", antonym: "MODERN", options: ["OLD", "MODERN", "HISTORIC"] },
-            { word: "ATTACK", antonym: "DEFEND", options: ["ASSAULT", "DEFEND", "INVADE"] },
-            { word: "BLESS", antonym: "CURSE", options: ["SANCTIFY", "CURSE", "PRAISE"] },
-            { word: "BOLD", antonym: "TIMID", options: ["BRAVE", "FEARLESS", "TIMID"] },
-            { word: "BUILD", antonym: "DESTROY", options: ["CONSTRUCT", "DESTROY", "CREATE"] },
-            { word: "CLEVER", antonym: "FOOLISH", options: ["SMART", "FOOLISH", "INTELLIGENT"] },
-            { word: "CRUEL", antonym: "KIND", options: ["BRUTAL", "GENTLE", "KIND"] },
-            { word: "DRY", antonym: "WET", options: ["ARID", "MOIST", "WET"] },
-            { word: "EMPTY", antonym: "FULL", options: ["HOLLOW", "FULL", "VACANT"] },
-            { word: "EXPAND", antonym: "CONTRACT", options: ["GROW", "SHRINK", "CONTRACT"] },
-            { word: "FAIL", antonym: "SUCCEED", options: ["FLOP", "BUNGLE", "SUCCEED"] },
-            { word: "FRIEND", antonym: "ENEMY", options: ["ALLY", "COMPANION", "ENEMY"] },
-            { word: "GENEROUS", antonym: "STINGY", options: ["KIND", "STINGY", "GIVING"] },
-            { word: "GUILTY", antonym: "INNOCENT", options: ["CULPRIT", "BLAMELESS", "INNOCENT"] },
-            { word: "IMPORT", antonym: "EXPORT", options: ["BRING IN", "SEND OUT", "EXPORT"] },
-            { word: "INCLUDE", antonym: "EXCLUDE", options: ["CONTAIN", "EXCLUDE", "ENCOMPASS"] },
-            { word: "MAJOR", antonym: "MINOR", options: ["BIG", "MINOR", "IMPORTANT"] },
-            { word: "OPTIMIST", antonym: "PESSIMIST", options: ["HOPEFUL", "DOUBTER", "PESSIMIST"] },
-            { word: "PERMIT", antonym: "FORBID", options: ["ALLOW", "FORBID", "GRANT"] },
-            { word: "PLENTY", antonym: "SCARCITY", options: ["ABUNDANCE", "SHORTAGE", "SCARCITY"] },
-            { word: "PRIVATE", antonym: "PUBLIC", options: ["SECRET", "PERSONAL", "PUBLIC"] },
-            { word: "PUNISH", antonym: "REWARD", options: ["PENALIZE", "REWARD", "CHASTISE"] },
-            { word: "ROUGH", antonym: "SMOOTH", options: ["COARSE", "BUMPY", "SMOOTH"] },
-            { word: "SHARP", antonym: "BLUNT", options: ["KEEN", "POINTY", "BLUNT"] },
-            { word: "SINCERE", antonym: "INSINCERE", options: ["HONEST", "GENUINE", "INSINCERE"] },
-            { word: "STALE", antonym: "FRESH", options: ["OLD", "ROTTEN", "FRESH"] },
-            { word: "TIGHT", antonym: "LOOSE", options: ["SNUG", "FIRM", "LOOSE"] },
-            { word: "TOP", antonym: "BOTTOM", options: ["PEAK", "APEX", "BOTTOM"] },
-            { word: "URBAN", antonym: "RURAL", options: ["CITY", "METROPOLITAN", "RURAL"] },
-            { word: "VIRTUE", antonym: "VICE", options: ["GOODNESS", "MORALITY", "VICE"] },
-            { word: "WEAK", antonym: "STRONG", options: ["FRAIL", "FEEBLE", "STRONG"] },
-            { word: "WILD", antonym: "TAME", options: ["UNTAMED", "SAVAGE", "TAME"] },
-            { word: "WISE", antonym: "FOOLISH", options: ["CLEVER", "PRUDENT", "FOOLISH"] },
-            { word: "YOUTH", antonym: "AGE", options: ["CHILDHOOD", "ADOLESCENCE", "AGE"] },
-            { word: "ADVANTAGE", antonym: "DISADVANTAGE", options: ["BENEFIT", "PLUS", "DISADVANTAGE"] },
-            // Additional Antonyms
-            { word: "ACCEPT", antonym: "REJECT", options: ["AGREE", "RECEIVE", "REJECT"] },
-            { word: "ACTIVE", antonym: "INACTIVE", options: ["BUSY", "LIVELY", "INACTIVE"] },
-            { word: "ADMIT", antonym: "DENY", options: ["CONFESS", "ACKNOWLEDGE", "DENY"] },
-            { word: "AGREE", antonym: "DISAGREE", options: ["CONSENT", "APPROVE", "DISAGREE"] },
-            { word: "ALWAYS", antonym: "NEVER", options: ["FOREVER", "CONSTANTLY", "NEVER"] },
-            { word: "APPEAR", antonym: "DISAPPEAR", options: ["EMERGE", "SHOW", "DISAPPEAR"] },
-            { word: "APPROVE", antonym: "DISAPPROVE", options: ["SANCTION", "ENDORSE", "DISAPPROVE"] },
-            { word: "ARTIFICIAL", antonym: "NATURAL", options: ["FAKE", "SYNTHETIC", "NATURAL"] },
-            { word: "ASCEND", antonym: "DESCEND", options: ["CLIMB", "RISE", "DESCEND"] },
-            { word: "ATTRACT", antonym: "REPEL", options: ["DRAW", "LURE", "REPEL"] },
-            { word: "BENEFIT", antonym: "HARM", options: ["ADVANTAGE", "GAIN", "HARM"] },
-            { word: "BLUNT", antonym: "SHARP", options: ["DULL", "ROUNDED", "SHARP"] },
-            { word: "CAREFUL", antonym: "CARELESS", options: ["CAUTIOUS", "THOUGHTFUL", "CARELESS"] },
-            { word: "CHEAP", antonym: "EXPENSIVE", options: ["INEXPENSIVE", "AFFORDABLE", "EXPENSIVE"] },
-            { word: "CLEAN", antonym: "DIRTY", options: ["SPOTLESS", "TIDY", "DIRTY"] },
-            { word: "COMPLICATED", antonym: "SIMPLE", options: ["COMPLEX", "INTRICATE", "SIMPLE"] },
-            { word: "COURAGE", antonym: "COWARDICE", options: ["BRAVERY", "VALOR", "COWARDICE"] },
-            { word: "CREATE", antonym: "DESTROY", options: ["BUILD", "INVENT", "DESTROY"] },
-            { word: "DARK", antonym: "LIGHT", options: ["GLOOMY", "SHADY", "LIGHT"] },
-            { word: "DEFEAT", antonym: "VICTORY", options: ["LOSS", "FAILURE", "VICTORY"] },
-            { word: "DEMAND", antonym: "SUPPLY", options: ["REQUIRE", "ASK", "SUPPLY"] },
-            { word: "DEPARTURE", antonym: "ARRIVAL", options: ["LEAVING", "EXIT", "ARRIVAL"] },
-            { word: "DIFFERENT", antonym: "SIMILAR", options: ["VARIOUS", "DIVERSE", "SIMILAR"] },
-            { word: "DISAPPEAR", antonym: "APPEAR", options: ["VANISH", "FADE", "APPEAR"] },
-            { word: "DIVIDE", antonym: "UNITE", options: ["SEPARATE", "SPLIT", "UNITE"] },
-            { word: "EARLY", antonym: "LATE", options: ["SOON", "PROMPT", "LATE"] },
-            { word: "EASY", antonym: "DIFFICULT", options: ["SIMPLE", "EFFORTLESS", "DIFFICULT"] },
-            { word: "ENCOURAGE", antonym: "DISCOURAGE", options: ["SUPPORT", "INSPIRE", "DISCOURAGE"] },
-            { word: "ENTER", antonym: "EXIT", options: ["COME IN", "GO IN", "EXIT"] },
-            { word: "EQUAL", antonym: "UNEQUAL", options: ["SAME", "IDENTICAL", "UNEQUAL"] },
-            { word: "EXCLUDE", antonym: "INCLUDE", options: ["OMIT", "LEAVE OUT", "INCLUDE"] },
-            { word: "EXIT", antonym: "ENTER", options: ["LEAVE", "DEPART", "ENTER"] },
-            { word: "EXPENSIVE", antonym: "CHEAP", options: ["COSTLY", "PRICEY", "CHEAP"] },
-            { word: "EXTERNAL", antonym: "INTERNAL", options: ["OUTSIDE", "OUTWARD", "INTERNAL"] },
-            { word: "FAIL", antonym: "SUCCEED", options: ["FLOP", "BUNGLE", "SUCCEED"] },
-            { word: "FALSE", antonym: "TRUE", options: ["INCORRECT", "UNTRUE", "TRUE"] },
-            { word: "FEAR", antonym: "COURAGE", options: ["DREAD", "TERROR", "COURAGE"] },
-            { word: "FEW", antonym: "MANY", options: ["SEVERAL", "SCARCE", "MANY"] },
-            { word: "FLOAT", antonym: "SINK", options: ["DRIFT", "HOVER", "SINK"] },
-            { word: "FOOLISH", antonym: "WISE", options: ["SILLY", "STUPID", "WISE"] },
-            { word: "FORWARD", antonym: "BACKWARD", options: ["AHEAD", "ONWARD", "BACKWARD"] },
-            { word: "FRESH", antonym: "STALE", options: ["NEW", "CRISP", "STALE"] },
-            { word: "FUTURE", antonym: "PAST", options: ["TOMORROW", "COMING", "PAST"] },
-            { word: "GIVE", antonym: "RECEIVE", options: ["DONATE", "GRANT", "RECEIVE"] },
-            { word: "GROW", antonym: "SHRINK", options: ["DEVELOP", "EXPAND", "SHRINK"] },
-            { word: "GUEST", antonym: "HOST", options: ["VISITOR", "CALLER", "HOST"] },
-            { word: "GUILTY", antonym: "INNOCENT", options: ["CULPRIT", "BLAMEABLE", "INNOCENT"] },
-            { word: "HEALTHY", antonym: "SICK", options: ["WELL", "FIT", "SICK"] },
-            { word: "HEAVY", antonym: "LIGHT", options: ["WEIGHTY", "BURDENSOME", "LIGHT"] },
-            { word: "HIGH", antonym: "LOW", options: ["TALL", "ELEVATED", "LOW"] },
-            { word: "HOPE", antonym: "DESPAIR", options: ["OPTIMISM", "WISH", "DESPAIR"] },
-            { word: "HUMBLE", antonym: "PROUD", options: ["MODEST", "MEEK", "PROUD"] },
-            { word: "IMPORT", antonym: "EXPORT", options: ["BRING IN", "INTRODUCE", "EXPORT"] },
-            { word: "INCREASE", antonym: "DECREASE", options: ["GROW", "EXPAND", "DECREASE"] },
-            { word: "INNER", antonym: "OUTER", options: ["INSIDE", "INTERNAL", "OUTER"] },
-            { word: "INNOCENT", antonym: "GUILTY", options: ["BLAMELESS", "PURE", "GUILTY"] },
-            { word: "KIND", antonym: "CRUEL", options: ["GENTLE", "COMPASSIONATE", "CRUEL"] },
-            { word: "KNOWLEDGE", antonym: "IGNORANCE", options: ["WISDOM", "LEARNING", "IGNORANCE"] },
-            { word: "LAND", antonym: "SEA", options: ["EARTH", "GROUND", "SEA"] },
-            { word: "LARGE", antonym: "SMALL", options: ["HUGE", "BIG", "SMALL"] },
-            { word: "LAUGH", antonym: "CRY", options: ["GIGGLE", "CHUCKLE", "CRY"] },
-            { word: "LEGAL", antonym: "ILLEGAL", options: ["LAWFUL", "PERMITTED", "ILLEGAL"] },
-            { word: "LONG", antonym: "SHORT", options: ["EXTENDED", "LENGTHY", "SHORT"] },
-            { word: "LOUD", antonym: "QUIET", options: ["NOISY", "BOOMING", "QUIET"] },
-            { word: "LOVE", antonym: "HATE", options: ["AFFECTION", "ADORATION", "HATE"] },
-            { word: "MAJOR", antonym: "PRIMARY", options: ["PRIMARY", "MAIN", "MINOR"] },
-            { word: "MAXIMUM", antonym: "MINIMUM", options: ["MOST", "HIGHEST", "MINIMUM"] },
-            { word: "MELT", antonym: "FREEZE", options: ["LIQUEFY", "THAW", "FREEZE"] },
-            { word: "MERRY", antonym: "GLOOMY", options: ["JOLLY", "CHEERFUL", "GLOOMY"] },
-            { word: "NARROW", antonym: "WIDE", options: ["THIN", "RESTRICTED", "WIDE"] },
-            { word: "NEAR", antonym: "FAR", options: ["CLOSE", "ADJACENT", "FAR"] },
-            { word: "NEAT", antonym: "MESSY", options: ["TIDY", "ORDERLY", "MESSY"] },
-            { word: "NEGATIVE", antonym: "POSITIVE", options: ["BAD", "PESSIMISTIC", "POSITIVE"] },
-            { word: "NEW", antonym: "OLD", options: ["FRESH", "MODERN", "OLD"] },
-            { word: "NOISY", antonym: "QUIET", options: ["LOUD", "ROWDY", "QUIET"] },
-            { word: "NORTH", antonym: "SOUTH", options: ["UP", "POLE", "SOUTH"] },
-            { word: "OBEY", antonym: "DISOBEY", options: ["FOLLOW", "COMPLY", "DISOBEY"] },
-            { word: "OFF", antonym: "ON", options: ["CLOSED", "DISABLED", "ON"] },
-            { word: "OLD", antonym: "YOUNG", options: ["ANCIENT", "AGED", "YOUNG"] },
-            { word: "OPTIMIST", antonym: "PESSIMIST", options: ["HOPEFUL", "POSITIVE", "PESSIMIST"] },
-            { word: "OUTSIDE", antonym: "INSIDE", options: ["EXTERNAL", "OUTDOOR", "INSIDE"] },
-            { word: "PERMANENT", antonym: "TEMPORARY", options: ["LASTING", "FIXED", "TEMPORARY"] },
-            { word: "PLENTY", antonym: "SCARCITY", options: ["ABUNDANCE", "SUFFICIENCY", "SCARCITY"] },
-            { word: "POLITE", antonym: "RUDE", options: ["COURTEOUS", "RESPECTFUL", "RUDE"] },
-            { word: "POOR", antonym: "RICH", options: ["IMPOVERISHED", "NEEDY", "RICH"] },
-            { word: "PRESENT", antonym: "ABSENT", options: ["HERE", "ATTENDING", "ABSENT"] },
-            { word: "PRIVATE", antonym: "PUBLIC", options: ["SECRET", "PERSONAL", "PUBLIC"] },
-            { word: "PUNISH", antonym: "REWARD", options: ["CHASTISE", "PENALIZE", "REWARD"] },
-            { word: "PUSH", antonym: "PULL", options: ["SHOVEL", "SHOVE", "PULL"] },
-            { word: "QUIET", antonym: "LOUD", options: ["SILENT", "PEACEFUL", "LOUD"] },
-            { word: "RAPID", antonym: "SLOW", options: ["FAST", "QUICK", "SLOW"] },
-            { word: "RARE", antonym: "COMMON", options: ["UNCOMMON", "SCARCE", "COMMON"] },
-            { word: "REAL", antonym: "FAKE", options: ["GENUINE", "AUTHENTIC", "FAKE"] },
-            { word: "REMEMBER", antonym: "FORGET", options: ["RECALL", "RECOLLECT", "FORGET"] },
-            { word: "REPAIR", antonym: "DAMAGE", options: ["FIX", "MEND", "DAMAGE"] },
-            { word: "REVEAL", antonym: "CONCEAL", options: ["DISCLOSE", "UNCOVER", "CONCEAL"] },
-            { word: "ROUGH", antonym: "SMOOTH", options: ["BUMPY", "COARSE", "SMOOTH"] },
-            { word: "RUDE", antonym: "POLITE", options: ["IMPOLITE", "CRUDE", "POLITE"] },
-            { word: "SAFE", antonym: "DANGEROUS", options: ["SECURE", "PROTECTED", "DANGEROUS"] },
-            { word: "SHALLOW", antonym: "DEEP", options: ["SUPERFICIAL", "FLAT", "DEEP"] },
-            { word: "SHARP", antonym: "BLUNT", options: ["KEEN", "POINTED", "BLUNT"] },
-            { word: "SHORT", antonym: "LONG", options: ["BRIEF", "SMALL", "LONG"] },
-            { word: "SHUT", antonym: "OPEN", options: ["CLOSE", "SEAL", "OPEN"] },
-            { word: "SIMPLE", antonym: "COMPLICATED", options: ["EASY", "PLAIN", "COMPLICATED"] },
-            { word: "SOFT", antonym: "HARD", options: ["GENTLE", "PLIANT", "HARD"] },
-            { word: "SOUTH", antonym: "NORTH", options: ["DOWN", "EQUATOR", "NORTH"] },
-            { word: "START", antonym: "FINISH", options: ["BEGIN", "COMMENCE", "FINISH"] },
-            { word: "STRONG", antonym: "WEAK", options: ["POWERFUL", "ROBUST", "WEAK"] },
-            { word: "SUCCESS", antonym: "FAILURE", options: ["TRIUMPH", "ACHIEVEMENT", "FAILURE"] },
-            { word: "SWEET", antonym: "SOUR", options: ["SUGARY", "DELICIOUS", "SOUR"] },
-            { word: "TAME", antonym: "WILD", options: ["DOMESTICATED", "GENTLE", "WILD"] },
-            { word: "THICK", antonym: "THIN", options: ["DENSE", "BROAD", "THIN"] },
-            { word: "TIDY", antonym: "MESSY", options: ["NEAT", "ORDERLY", "MESSY"] },
-            { word: "TOP", antonym: "BOTTOM", options: ["PEAK", "SUMMIT", "BOTTOM"] },
-            { word: "UGLY", antonym: "BEAUTIFUL", options: ["UNATTRACTIVE", "HIDEOUS", "BEAUTIFUL"] },
-            { word: "UP", antonym: "DOWN", options: ["ABOVE", "UPWARD", "DOWN"] },
-            { word: "USEFUL", antonym: "USELESS", options: ["HELPFUL", "PRACTICAL", "USELESS"] },
-            { word: "VICTORY", antonym: "DEFEAT", options: ["TRIUMPH", "WIN", "DEFEAT"] },
-            { word: "WAR", antonym: "PEACE", options: ["CONFLICT", "BATTLE", "PEACE"] },
-            { word: "WET", antonym: "DRY", options: ["DAMP", "MOIST", "DRY"] },
-            { word: "WHITE", antonym: "BLACK", options: ["PALE", "LIGHT", "BLACK"] },
-            { word: "WHOLE", antonym: "PARTIAL", options: ["ENTIRE", "COMPLETE", "PARTIAL"] },
-            { word: "WIDE", antonym: "NARROW", options: ["BROAD", "EXTENSIVE", "NARROW"] },
-            { word: "WIN", antonym: "LOSE", options: ["SUCCEED", "TRIUMPH", "LOSE"] },
-            { word: "WINTER", antonym: "SUMMER", options: ["COLD", "SNOW", "SUMMER"] },
-            { word: "WITHIN", antonym: "WITHOUT", options: ["INSIDE", "INTERNAL", "WITHOUT"] },
-            { word: "YES", antonym: "NO", options: ["AFFIRMATIVE", "AGREE", "NO"] },
-            { word: "YIELD", antonym: "RESIST", options: ["SURRENDER", "GIVE IN", "RESIST"] }
-        ];
+        // JavaScript for Hamburger Menu, Smooth Scrolling, and Theme Switching
 
-        const synonymList = [
-            { word: "BEGIN", synonym: "START", options: ["END", "FINISH", "START"] },
-            { word: "FAST", synonym: "QUICK", options: ["SLOW", "RAPID", "QUICK"] },
-            { word: "JOY", synonym: "HAPPINESS", options: ["SADNESS", "MISERY", "HAPPINESS"] },
-            { word: "LARGE", synonym: "BIG", options: ["SMALL", "TINY", "BIG"] },
-            { word: "SHOUT", synonym: "YELL", options: ["WHISPER", "MURMUR", "YELL"] },
-            { word: "CLEAN", synonym: "TIDY", options: ["DIRTY", "MESSY", "TIDY"] },
-            { word: "FINISH", synonym: "COMPLETE", options: ["START", "BEGIN", "COMPLETE"] },
-            { word: "HELP", synonym: "ASSIST", options: ["HINDER", "OBSTRUCT", "ASSIST"] },
-            { word: "OLD", synonym: "ANCIENT", options: ["NEW", "MODERN", "ANCIENT"] },
-            { word: "QUIET", synonym: "SILENT", options: ["LOUD", "NOISY", "SILENT"] },
-            { word: "ANGRY", synonym: "FURIOUS", options: ["CALM", "HAPPY", "FURIOUS"] },
-            { word: "BRAVE", synonym: "COURAGEOUS", options: ["COWARDLY", "FEARFUL", "COURAGEOUS"] },
-            { word: "BUY", synonym: "PURCHASE", options: ["SELL", "GIVE", "PURCHASE"] },
-            { word: "DIFFICULT", synonym: "HARD", options: ["EASY", "SIMPLE", "HARD"] },
-            { word: "ENJOY", synonym: "DELIGHT", options: ["DISLIKE", "HATE", "DELIGHT"] },
-            { word: "EVIL", synonym: "WICKED", options: ["GOOD", "KIND", "WICKED"] },
-            { word: "FAMOUS", synonym: "WELL-KNOWN", options: ["UNKNOWN", "OBSCURE", "WELL-KNOWN"] },
-            { word: "GATHER", synonym: "COLLECT", options: ["SCATTER", "DISPERSE", "COLLECT"] },
-            { word: "GENUINE", synonym: "AUTHENTIC", options: ["FAKE", "FALSE", "AUTHENTIC"] },
-            { word: "HIDE", synonym: "CONCEAL", options: ["REVEAL", "SHOW", "CONCEAL"] },
-            { word: "IMPORTANT", synonym: "CRUCIAL", options: ["TRIVIAL", "MINOR", "CRUCIAL"] },
-            { word: "JOB", synonym: "OCCUPATION", options: ["HOBBY", "PASTIME", "OCCUPATION"] },
-            { word: "KILL", synonym: "MURDER", options: ["SAVE", "RESURRECT", "MURDER"] },
-            { word: "LAZY", synonym: "IDLE", options: ["ACTIVE", "BUSY", "IDLE"] },
-            { word: "LISTEN", synonym: "HEAR", options: ["IGNORE", "OVERLOOK", "HEAR"] },
-            { word: "MAJOR", synonym: "PRINCIPAL", options: ["MINOR", "SECONDARY", "PRINCIPAL"] },
-            { word: "NICE", synonym: "PLEASANT", options: ["UNPLEASANT", "NASTY", "PLEASANT"] },
-            { word: "OBEY", synonym: "COMPLY", options: ["DISOBEY", "REBEL", "COMPLY"] },
-            { word: "ODD", synonym: "STRANGE", options: ["NORMAL", "COMMON", "STRANGE"] },
-            { word: "PEACE", synonym: "CALM", options: ["WAR", "CONFLICT", "CALM"] },
-            { word: "POLITE", synonym: "COURTEOUS", options: ["RUDE", "IMPOLITE", "COURTEOUS"] },
-            { word: "QUICKLY", synonym: "RAPIDLY", options: ["SLOWLY", "LEISURELY", "RAPIDLY"] },
-            { word: "REMEMBER", synonym: "RECALL", options: ["FORGET", "DISMISS", "RECALL"] },
-            { word: "RICH", synonym: "WEALTHY", options: ["POOR", "IMPOVERISHED", "WEALTHY"] },
-            { word: "SAD", synonym: "UNHAPPY", options: ["HAPPY", "JOYFUL", "UNHAPPY"] },
-            { word: "SMART", synonym: "INTELLIGENT", options: ["STUPID", "DULL", "INTELLIGENT"] },
-            { word: "STRONG", synonym: "POWERFUL", options: ["WEAK", "FRAIL", "POWERFUL"] },
-            { word: "THINK", synonym: "PONDER", options: ["FORGET", "NEGLECT", "PONDER"] },
-            { word: "TRUE", synonym: "CORRECT", options: ["FALSE", "WRONG", "CORRECT"] },
-            { word: "UGLY", synonym: "UNATTRACTIVE", options: ["BEAUTIFUL", "PRETTY", "UNATTRACTIVE"] },
-            { word: "VACANT", synonym: "EMPTY", options: ["FULL", "OCCUPIED", "EMPTY"] },
-            { word: "VICTORY", synonym: "TRIUMPH", options: ["DEFEAT", "LOSS", "TRIUMPH"] },
-            { word: "WEAK", synonym: "FRAIL", options: ["STRONG", "ROBUST", "FRAIL"] },
-            { word: "WHOLE", synonym: "ENTIRE", options: ["PARTIAL", "INCOMPLETE", "WHOLE"] },
-            { word: "WISE", synonym: "SAGACIOUS", options: ["FOOLISH", "IGNORANT", "SAGACIOUS"] },
-            { word: "YELL", synonym: "SHOUT", options: ["WHISPER", "MURMUR", "SHOUT"] },
-            { word: "ZEALOUS", synonym: "ENTHUSIASTIC", options: ["APATHETIC", "INDIFFERENT", "ENTHUSIASTIC"] },
-            { word: "FORTUNE", synonym: "LUCK", options: ["LUCK", "FATE", "UNLUCKY"] },
-            // Additional Synonyms
-            { word: "ABANDON", synonym: "DESERT", options: ["KEEP", "HOLD", "DESERT"] },
-            { word: "ACCURATE", synonym: "CORRECT", options: ["WRONG", "FALSE", "CORRECT"] },
-            { word: "ACHIEVE", synonym: "ACCOMPLISH", options: ["FAIL", "LOSE", "ACCOMPLISH"] },
-            { word: "ADAPT", synonym: "ADJUST", options: ["RESIST", "REFUSE", "ADJUST"] },
-            { word: "ADEQUATE", synonym: "SUFFICIENT", options: ["INSUFFICIENT", "LACKING", "SUFFICIENT"] },
-            { word: "ADMIRE", synonym: "RESPECT", options: ["DESPISE", "HATE", "RESPECT"] },
-            { word: "ADULT", synonym: "GROWN-UP", options: ["CHILD", "INFANT", "GROWN-UP"] },
-            { word: "ADVANTAGE", synonym: "BENEFIT", options: ["DISADVANTAGE", "HINDRANCE", "BENEFIT"] },
-            { word: "ADVENTURE", synonym: "JOURNEY", options: ["ROUTINE", "STILLNESS", "JOURNEY"] },
-            { word: "AFFORD", synonym: "MANAGE", options: ["FAIL", "LACK", "MANAGE"] },
-            { word: "AGGRESSIVE", synonym: "ASSERTIVE", options: ["PASSIVE", "SHY", "ASSERTIVE"] },
-            { word: "AID", synonym: "HELP", options: ["HINDER", "OBSTRUCT", "HELP"] },
-            { word: "ALERT", synonym: "VIGILANT", options: ["SLEEPY", "UNCONSCIOUS", "VIGILANT"] },
-            { word: "ALLOW", synonym: "PERMIT", options: ["FORBID", "PROHIBIT", "PERMIT"] },
-            { word: "AMAZING", synonym: "ASTONISHING", options: ["BORING", "ORDINARY", "ASTONISHING"] },
-            { word: "ANCIENT", synonym: "OLD", options: ["NEW", "MODERN", "OLD"] },
-            { word: "ANSWER", synonym: "REPLY", options: ["QUESTION", "ASK", "REPLY"] },
-            { word: "APART", synonym: "SEPARATE", options: ["TOGETHER", "JOINED", "SEPARATE"] },
-            { word: "APOLOGIZE", synonym: "REGRET", options: ["INSULT", "OFFEND", "REGRET"] },
-            { word: "APPARENT", synonym: "OBVIOUS", options: ["HIDDEN", "UNCLEAR", "OBVIOUS"] },
-            { word: "APPEAR", synonym: "SEEM", options: ["VANISH", "DISAPPEAR", "SEEM"] },
-            { word: "APPROACH", synonym: "COME NEAR", options: ["DEPART", "LEAVE", "COME NEAR"] },
-            { word: "APPROPRIATE", synonym: "SUITABLE", options: ["INAPPROPRIATE", "UNSUITABLE", "SUITABLE"] },
-            { word: "ARID", synonym: "DRY", options: ["WET", "MOIST", "DRY"] },
-            { word: "ARRANGE", synonym: "ORGANIZE", options: ["DISORDER", "MESS", "ORGANIZE"] },
-            { word: "ARTIFICIAL", synonym: "SYNTHETIC", options: ["NATURAL", "REAL", "SYNTHETIC"] },
-            { word: "ASK", synonym: "INQUIRE", options: ["ANSWER", "REPLY", "INQUIRE"] },
-            { word: "ASSIST", synonym: "HELP", options: ["HINDER", "OBSTRUCT", "HELP"] },
-            { word: "ATTEMPT", synonym: "TRY", options: ["GIVE UP", "QUIT", "TRY"] },
-            { word: "ATTRACTIVE", synonym: "APPEALING", options: ["UGLY", "REPULSIVE", "APPEALING"] },
-            { word: "AWFUL", synonym: "TERRIBLE", options: ["GREAT", "WONDERFUL", "TERRIBLE"] },
-            { word: "BAD", synonym: "EVIL", options: ["GOOD", "MORAL", "EVIL"] },
-            { word: "BEAUTIFUL", synonym: "LOVELY", options: ["UGLY", "HIDEOUS", "LOVELY"] },
-            { word: "BELOW", synonym: "UNDER", options: ["ABOVE", "OVER", "UNDER"] },
-            { word: "BENEFIT", synonym: "ADVANTAGE", options: ["HARM", "LOSS", "ADVANTAGE"] },
-            { word: "BLAME", synonym: "ACCUSE", options: ["PRAISE", "FORGIVE", "ACCUSE"] },
-            { word: "BLANK", synonym: "EMPTY", options: ["FULL", "FILLED", "EMPTY"] },
-            { word: "BORE", synonym: "TIRE", options: ["EXCITE", "AMUSE", "TIRE"] },
-            { word: "BRIEF", synonym: "SHORT", options: ["LONG", "EXTENDED", "SHORT"] },
-            { word: "BRIGHT", synonym: "SHINY", options: ["DARK", "DIM", "SHINY"] },
-            { word: "CALM", synonym: "PEACEFUL", options: ["AGITATED", "CHAOTIC", "PEACEFUL"] },
-            { word: "CAPABLE", synonym: "ABLE", options: ["INCAPABLE", "UNABLE", "ABLE"] },
-            { word: "CAREFUL", synonym: "CAUTIOUS", options: ["CARELESS", "RECKLESS", "CAUTIOUS"] },
-            { word: "CEASE", synonym: "STOP", options: ["START", "BEGIN", "STOP"] },
-            { word: "CHANCE", synonym: "OPPORTUNITY", options: ["MISFORTUNE", "BAD LUCK", "OPPORTUNITY"] },
-            { word: "CHARMING", synonym: "DELIGHTFUL", options: ["UNPLEASANT", "OFFENSIVE", "DELIGHTFUL"] },
-            { word: "CHOOSE", synonym: "SELECT", options: ["REJECT", "DISCARD", "SELECT"] },
-            { word: "CLARIFY", synonym: "EXPLAIN", options: ["CONFUSE", "OBSCURE", "EXPLAIN"] },
-            { word: "CLOSE", synonym: "SHUT", options: ["OPEN", "UNSEAL", "SHUT"] },
-            { word: "COLD", synonym: "CHILLY", options: ["HOT", "WARM", "CHILLY"] },
-            { word: "COMFORT", synonym: "EASE", options: ["DISCOMFORT", "PAIN", "EASE"] },
-            { word: "COMMON", synonym: "ORDINARY", options: ["UNCOMMON", "RARE", "ORDINARY"] },
-            { word: "COMPARE", synonym: "CONTRAST", options: ["DIFFER", "OPPOSE", "CONTRAST"] },
-            { word: "CONCEAL", synonym: "HIDE", options: ["REVEAL", "SHOW", "HIDE"] },
-            { word: "CONFIDENT", synonym: "ASSURED", options: ["DOUBTFUL", "INSECURE", "ASSURED"] },
-            { word: "CONNECT", synonym: "JOIN", options: ["SEPARATE", "DISCONNECT", "JOIN"] },
-            { word: "CONSIDER", synonym: "THINK", options: ["DISMISS", "IGNORE", "THINK"] },
-            { word: "CONSTANT", synonym: "CONTINUOUS", options: ["INTERMITTENT", "STOPPING", "CONTINUOUS"] },
-            { word: "CONSTRUCT", synonym: "BUILD", options: ["DESTROY", "DEMOLISH", "BUILD"] },
-            { word: "CONTENT", synonym: "HAPPY", options: ["UNHAPPY", "DISSATISFIED", "HAPPY"] },
-            { word: "CONTINUE", synonym: "PROCEED", options: ["STOP", "CEASE", "PROCEED"] },
-            { word: "CONTRARY", synonym: "OPPOSITE", options: ["SIMILAR", "SAME", "OPPOSITE"] },
-            { word: "CONVINCE", synonym: "PERSUADE", options: ["DISSUADE", "DISCOURAGE", "PERSUADE"] },
-            { word: "COOL", synonym: "CHILLY", options: ["WARM", "HOT", "CHILLY"] },
-            { word: "CORRECT", synonym: "ACCURATE", options: ["WRONG", "FALSE", "ACCURATE"] },
-            { word: "COURAGEOUS", synonym: "BRAVE", options: ["COWARDLY", "FEARFUL", "BRAVE"] },
-            { word: "CRITICAL", synonym: "CRUCIAL", options: ["UNIMPORTANT", "TRIVIAL", "CRUCIAL"] },
-            { word: "CRUEL", synonym: "BRUTAL", options: ["KIND", "GENTLE", "BRUTAL"] },
-            { word: "CURIOUS", synonym: "INQUISITIVE", options: ["INDIFFERENT", "UNINTERESTED", "INQUISITIVE"] },
-            { word: "DANGER", synonym: "PERIL", options: ["SAFETY", "SECURITY", "PERIL"] },
-            { word: "DARE", synonym: "CHALLENGE", options: ["AVOID", "SHY AWAY", "CHALLENGE"] },
-            { word: "DARK", synonym: "DIM", options: ["BRIGHT", "LIGHT", "DIM"] },
-            { word: "DEAR", synonym: "BELOVED", options: ["HATED", "DESPISED", "BELOVED"] },
-            { word: "DECEIVE", synonym: "MISLEAD", options: ["GUIDE", "INFORM", "MISLEAD"] },
-            { word: "DECIDE", synonym: "DETERMINE", options: ["HESITATE", "VACILLATE", "DETERMINE"] },
-            { word: "DECREASE", synonym: "REDUCE", options: ["INCREASE", "GROW", "REDUCE"] },
-            { word: "DEEP", synonym: "PROFUND", options: ["SHALLOW", "SUPERFICIAL", "PROFUND"] },
-            { word: "DEFEND", synonym: "PROTECT", options: ["ATTACK", "HARM", "PROTECT"] },
-            { word: "DELICIOUS", synonym: "TASTY", options: ["UNPALATABLE", "DISGUSTING", "TASTY"] },
-            { word: "DENY", synonym: "REFUSE", options: ["ADMIT", "ACCEPT", "REFUSE"] },
-            { word: "DEPART", synonym: "LEAVE", options: ["ARRIVE", "COME", "LEAVE"] },
-            { word: "DEPENDABLE", synonym: "RELIABLE", options: ["UNRELIABLE", "UNTRUSTWORTHY", "RELIABLE"] },
-            { word: "DESTROY", synonym: "DEMOLISH", options: ["BUILD", "CREATE", "DEMOLISH"] },
-            { word: "DETERMINE", synonym: "DECIDE", options: ["HESITATE", "WAVER", "DECIDE"] },
-            { word: "DEVELOP", synonym: "GROW", options: ["SHRINK", "DECLINE", "GROW"] },
-            { word: "DIFFERENT", synonym: "DISTINCT", options: ["SIMILAR", "SAME", "DISTINCT"] },
-            { word: "DIM", synonym: "FAINT", options: ["BRIGHT", "CLEAR", "FAINT"] },
-            { word: "DISCLOSE", synonym: "REVEAL", options: ["CONCEAL", "HIDE", "REVEAL"] },
-            { word: "DISCOVER", synonym: "FIND", options: ["LOSE", "MISS", "FIND"] },
-            { word: "DISLIKE", synonym: "HATE", options: ["LIKE", "LOVE", "HATE"] },
-            { word: "DIVIDE", synonym: "SEPARATE", options: ["JOIN", "UNITE", "SEPARATE"] },
-            { word: "DOMESTIC", synonym: "HOUSEHOLD", options: ["FOREIGN", "WILD", "HOUSEHOLD"] },
-            { word: "DOUBT", synonym: "UNCERTAINTY", options: ["CERTAINTY", "BELIEF", "UNCERTAINTY"] },
-            { word: "DRAMATIC", synonym: "STRIKING", options: ["ORDINARY", "DULL", "STRIKING"] },
-            { word: "DREAM", synonym: "FANTASY", options: ["REALITY", "FACT", "FANTASY"] },
-            { word: "DULL", synonym: "BORING", options: ["EXCITING", "INTERESTING", "BORING"] },
-            { word: "EAGER", synonym: "KEEN", options: ["RELUCTANT", "UNWILLING", "KEEN"] },
-            { word: "EFFECTIVE", synonym: "EFFICIENT", options: ["INEFFECTIVE", "USELESS", "EFFICIENT"] },
-            { word: "ELEGANT", synonym: "GRACEFUL", options: ["AWKWARD", "CLUMSY", "GRACEFUL"] },
-            { word: "EMPHASIZE", synonym: "HIGHLIGHT", options: ["UNDERSTATE", "DOWNPLAY", "HIGHLIGHT"] },
-            { word: "ENCOUNTER", synonym: "MEET", options: ["AVOID", "MISS", "MEET"] },
-            { word: "END", synonym: "TERMINATE", options: ["START", "BEGIN", "TERMINATE"] },
-            { word: "ENORMOUS", synonym: "HUGE", options: ["TINY", "SMALL", "HUGE"] },
-            { word: "ENTIRE", synonym: "WHOLE", options: ["PARTIAL", "INCOMPLETE", "WHOLE"] },
-            { word: "ENTHUSIASTIC", synonym: "EAGER", options: ["APATHETIC", "INDIFFERENT", "EAGER"] },
-            { word: "ERASE", synonym: "DELETE", options: ["ADD", "CREATE", "DELETE"] },
-            { word: "ESSENTIAL", synonym: "NECESSARY", options: ["UNNECESSARY", "OPTIONAL", "NECESSARY"] },
-            { word: "ESTABLISH", synonym: "CREATE", options: ["DESTROY", "ABOLISH", "CREATE"] },
-            { word: "EVALUATE", synonym: "ASSESS", options: ["IGNORE", "NEGLECT", "ASSESS"] },
-            { word: "EVIDENT", synonym: "OBVIOUS", options: ["HIDDEN", "UNCLEAR", "OBVIOUS"] },
-            { word: "EXACT", synonym: "PRECISE", options: ["INEXACT", "APPROXIMATE", "PRECISE"] },
-            { word: "EXAMINE", synonym: "INSPECT", options: ["OVERLOOK", "IGNORE", "INSPECT"] },
-            { word: "EXCELLENT", synonym: "SUPERB", options: ["POOR", "TERRIBLE", "SUPERB"] },
-            { word: "EXCITE", synonym: "THRILL", options: ["BORE", "CALM", "THRILL"] },
-            { word: "EXHAUSTED", synonym: "TIRED", options: ["ENERGETIC", "RESTED", "TIRED"] },
-            { word: "EXPLAIN", synonym: "CLARIFY", options: ["CONFUSE", "OBSCURE", "CLARIFY"] },
-            { word: "EXPLORE", synonym: "INVESTIGATE", options: ["IGNORE", "NEGLECT", "INVESTIGATE"] },
-            { word: "EXTEND", synonym: "PROLONG", options: ["SHORTEN", "REDUCE", "PROLONG"] },
-            { word: "EXTRA", synonym: "ADDITIONAL", options: ["LACKING", "MISSING", "ADDITIONAL"] },
-            { word: "FABULOUS", synonym: "WONDERFUL", options: ["AWFUL", "TERRIBLE", "WONDERFUL"] },
-            { word: "FACE", synonym: "CONFRONT", options: ["AVOID", "EVADE", "CONFRONT"] },
-            { word: "FAIR", synonym: "JUST", options: ["UNFAIR", "BIASED", "JUST"] },
-            { word: "FAITHFUL", synonym: "LOYAL", options: ["DISLOYAL", "TREACHEROUS", "LOYAL"] },
-            { word: "FAMILIAR", synonym: "KNOWN", options: ["UNKNOWN", "STRANGE", "KNOWN"] },
-            { word: "FASCINATING", synonym: "CAPTIVATING", options: ["BORING", "DULL", "CAPTIVATING"] },
-            { word: "FATIGUE", synonym: "TIREDNESS", options: ["ENERGY", "VIGOR", "TIREDNESS"] },
-            { word: "FAVORITE", synonym: "PREFERRED", options: ["DISLIKED", "HATED", "PREFERRED"] },
-            { word: "FEARFUL", synonym: "AFRAID", options: ["BRAVE", "COURAGEOUS", "AFRAID"] },
-            { word: "FEEBLE", synonym: "WEAK", options: ["STRONG", "ROBUST", "WEAK"] },
-            { word: "FIERCE", synonym: "FEROCIOUS", options: ["GENTLE", "MILD", "FEROCIOUS"] },
-            { word: "FINAL", synonym: "LAST", options: ["FIRST", "INITIAL", "LAST"] },
-            { word: "FIRM", synonym: "SOLID", options: ["SOFT", "LOOSE", "SOLID"] },
-            { word: "FIT", synonym: "SUITABLE", options: ["UNSUITABLE", "INAPPROPRIATE", "SUITABLE"] },
-            { word: "FLAWLESS", synonym: "PERFECT", options: ["IMPERFECT", "FAULTY", "PERFECT"] },
-            { word: "FLEXIBLE", synonym: "PLIABLE", options: ["RIGID", "STIFF", "PLIABLE"] },
-            { word: "FLOURISH", synonym: "THRIVE", options: ["WITHER", "DECLINE", "THRIVE"] },
-            { word: "FLOW", synonym: "STREAM", options: ["STOP", "STAGNATE", "STREAM"] },
-            { word: "FOLLOW", synonym: "PURSUIT", options: ["LEAD", "GUIDE", "PURSUIT"] },
-            { word: "FORBID", synonym: "PROHIBIT", options: ["ALLOW", "PERMIT", "PROHIBIT"] },
-            { word: "FORCE", synonym: "COMPEL", options: ["PERSUADE", "CONVINCE", "COMPEL"] },
-            { word: "FOREVER", synonym: "ETERNALLY", options: ["TEMPORARILY", "BRIEFLY", "ETERNALLY"] },
-            { word: "FORMER", synonym: "PREVIOUS", options: ["LATTER", "NEXT", "PREVIOUS"] },
-            { word: "FRAGILE", synonym: "DELICATE", options: ["STRONG", "DURABLE", "DELICATE"] },
-            { word: "FREEDOM", synonym: "LIBERTY", options: ["SLAVERY", "BONDAGE", "LIBERTY"] },
-            { word: "FREQUENT", synonym: "OFTEN", options: ["SELDOM", "RARELY", "OFTEN"] },
-            { word: "FRIENDLY", synonym: "AMIABLE", options: ["UNFRIENDLY", "HOSTILE", "AMIABLE"] },
-            { word: "FRIGHTEN", synonym: "SCARE", options: ["COMFORT", "ASSURE", "SCARE"] },
-            { word: "FUNCTION", synonym: "PURPOSE", options: ["MALFUNCTION", "FAILURE", "PURPOSE"] },
-            { word: "GENEROUS", synonym: "GIVING", options: ["STINGY", "SELFISH", "GIVING"] },
-            { word: "GENTLE", synonym: "MILD", options: ["HARSH", "ROUGH", "MILD"] },
-            { word: "GLAD", synonym: "HAPPY", options: ["SAD", "UNHAPPY", "HAPPY"] },
-            { word: "GLOOMY", synonym: "DARK", options: ["BRIGHT", "CHEERFUL", "DARK"] },
-            { word: "GRAB", synonym: "SEIZE", options: ["RELEASE", "LET GO", "SEIZE"] },
-            { word: "GRAND", synonym: "MAGNIFICENT", options: ["SMALL", "INSIGNIFICANT", "MAGNIFICENT"] },
-            { word: "GRATEFUL", synonym: "THANKFUL", options: ["UNGRATEFUL", "UNTHANKFUL", "THANKFUL"] },
-            { word: "GREAT", synonym: "EXCELLENT", options: ["BAD", "POOR", "EXCELLENT"] },
-            { word: "GREET", synonym: "WELCOME", options: ["BID FAREWELL", "IGNORE", "WELCOME"] },
-            { word: "GRUMPY", synonym: "CRABBY", options: ["CHEERFUL", "HAPPY", "CRABBY"] },
-            { word: "GUARD", synonym: "PROTECT", options: ["NEGLECT", "ABANDON", "PROTECT"] },
-            { word: "GUIDE", synonym: "LEAD", options: ["FOLLOW", "WANDER", "LEAD"] },
-            { word: "HABIT", synonym: "CUSTOM", options: ["EXCEPTION", "DEVIATION", "CUSTOM"] },
-            { word: "HANDY", synonym: "USEFUL", options: ["USELESS", "AWKWARD", "USEFUL"] },
-            { word: "HARM", synonym: "INJURY", options: ["BENEFIT", "HELP", "INJURY"] },
-            { word: "HARMONY", synonym: "AGREEMENT", options: ["DISCORD", "CONFLICT", "AGREEMENT"] },
-            { word: "HASTY", synonym: "QUICK", options: ["SLOW", "DELIBERATE", "QUICK"] },
-            { word: "HAZARDOUS", synonym: "DANGEROUS", options: ["SAFE", "SECURE", "DANGEROUS"] },
-            { word: "HEALTHY", synonym: "FIT", options: ["SICK", "UNWELL", "FIT"] },
-            { word: "HEAVY", synonym: "WEIGHTY", options: ["LIGHT", "FEATHERY", "WEIGHTY"] },
-            { word: "HIDDEN", synonym: "CONCEALED", options: ["EXPOSED", "VISIBLE", "CONCEALED"] },
-            { word: "HIGH", synonym: "TALL", options: ["LOW", "SHORT", "TALL"] },
-            { word: "HONEST", synonym: "TRUTHFUL", options: ["DISHONEST", "DECEITFUL", "TRUTHFUL"] },
-            { word: "HOPEFUL", synonym: "OPTIMISTIC", options: ["HOPELESS", "PESSIMISTIC", "OPTIMISTIC"] },
-            { word: "HOSTILE", synonym: "UNFRIENDLY", options: ["FRIENDLY", "AMIABLE", "UNFRIENDLY"] },
-            { word: "HUMBLE", synonym: "MODEST", options: ["ARROGANT", "PROUD", "MODEST"] },
-            { word: "IDEAL", synonym: "PERFECT", options: ["IMPERFECT", "FLAWED", "PERFECT"] },
-            { word: "ILLEGAL", synonym: "UNLAWFUL", options: ["LEGAL", "LAWFUL", "UNLAWFUL"] },
-            { word: "IMAGINE", synonym: "CONCEIVE", options: ["REALITY", "FACT", "CONCEIVE"] },
-            { word: "IMMEDIATE", synonym: "INSTANT", options: ["DELAYED", "FUTURE", "INSTANT"] },
-            { word: "IMPACT", synonym: "EFFECT", options: ["CAUSE", "ORIGIN", "EFFECT"] },
-            { word: "IMPATIENT", synonym: "EAGER", options: ["PATIENT", "CALM", "EAGER"] },
-            { word: "IMPOLITE", synonym: "RUDE", options: ["POLITE", "COURTEOUS", "RUDE"] },
-            { word: "IMPROVE", synonym: "ENHANCE", options: ["WORSEN", "DEGRADE", "ENHANCE"] },
-            { word: "INCREASE", synonym: "GROW", options: ["DECREASE", "SHRINK", "GROW"] },
-            { word: "INDIVIDUAL", synonym: "SINGLE", options: ["GROUP", "COLLECTIVE", "SINGLE"] },
-            { word: "INFERIOR", synonym: "LOWER", options: ["SUPERIOR", "HIGHER", "LOWER"] },
-            { word: "INFORM", synonym: "NOTIFY", options: ["CONCEAL", "HIDE", "NOTIFY"] },
-            { word: "INITIAL", synonym: "FIRST", options: ["FINAL", "LAST", "FIRST"] },
-            { word: "INNOCENT", synonym: "BLAMELESS", options: ["GUILTY", "CULPRIT", "BLAMELESS"] },
-            { word: "INSIDE", synonym: "INTERNAL", options: ["OUTSIDE", "EXTERNAL", "INTERNAL"] },
-            { word: "INSPIRE", synonym: "MOTIVATE", options: ["DISCOURAGE", "DEMOTIVATE", "MOTIVATE"] },
-            { word: "INSTANT", synonym: "MOMENT", options: ["DURATION", "PERIOD", "MOMENT"] },
-            { word: "INSTRUCT", synonym: "TEACH", options: ["LEARN", "STUDY", "TEACH"] },
-            { word: "INTENSE", synonym: "STRONG", options: ["WEAK", "MILD", "STRONG"] },
-            { word: "INTERESTING", synonym: "ENGAGING", options: ["BORING", "DULL", "ENGAGING"] },
-            { word: "INTERNAL", synonym: "INNER", options: ["EXTERNAL", "OUTER", "INNER"] },
-            { word: "JOIN", synonym: "CONNECT", options: ["SEPARATE", "DIVIDE", "CONNECT"] },
-            { word: "JOLLY", synonym: "MERRY", options: ["SAD", "GLOOMY", "MERRY"] },
-            { word: "JUMP", synonym: "LEAP", options: ["SIT", "STAY", "LEAP"] },
-            { word: "JUST", synonym: "FAIR", options: ["UNFAIR", "BIASED", "FAIR"] },
-            { word: "KEEN", synonym: "EAGER", options: ["INDIFFERENT", "APATHETIC", "EAGER"] },
-            { word: "KEY", synonym: "CRUCIAL", options: ["MINOR", "TRIVIAL", "CRUCIAL"] },
-            { word: "KIND", synonym: "GENTLE", options: ["CRUEL", "HARSH", "GENTLE"] },
-            { word: "KNOWLEDGE", synonym: "UNDERSTANDING", options: ["IGNORANCE", "UNFAMILIARITY", "UNDERSTANDING"] }
-        ];
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const desktopThemesToggle = document.getElementById('desktop-themes-toggle');
+        const mobileThemesToggle = document.getElementById('mobile-themes-toggle');
+        const navLinks = document.querySelectorAll('#mobile-menu a, .desktop-nav a, .header-logo'); // All navigation links
 
-        // --- DOM Elements ---
-        const gameContainer = document.getElementById('game-container'); // Added for container transitions
-        const gameTitle = document.getElementById('game-title');
-        const startScreen = document.getElementById('start-screen');
-        const modeSelectionScreen = document.getElementById('mode-selection-screen');
-        const twoPlayerSubModeSelectionScreen = document.getElementById('two-player-sub-mode-selection-screen'); // New 2-player sub-mode screen
-        const modeInfoScreen = document.getElementById('mode-info-screen');
-        const offlineScreen = document.getElementById('offline-screen');
-        const optionsScreen = document.getElementById('options-screen');
-        const gameScreen = document.getElementById('game-screen');
-        const quitConfirmationScreen = document.getElementById('quit-confirmation-screen');
-        const resetConfirmationScreen = document.getElementById('reset-confirmation-screen'); // New reset confirmation screen
-        const endScreen = document.getElementById('end-screen');
+        // Removed 'theme-2' (Rainbow Dark)
+        const themes = ['original', 'theme-1', 'theme-3'];
+        let currentThemeIndex = 0;
 
-        const playButton = document.getElementById('play-button');
-        const offlineButton = document.getElementById('offline-button');
-        const optionsButton = document.getElementById('options-button');
-        const modeInfoButton = document.getElementById('mode-info-button');
-        const linkyButton = document.getElementById('linky-button');
-        const backFromInfoButton = document.getElementById('back-from-info-button');
-        const backFromOfflineButton = document.getElementById('back-from-offline-button');
-        const backFromOptionsButton = document.getElementById('back-from-options-button');
-        const changeThemeButton = document.getElementById('change-theme-button');
-        const currentThemeIndicator = document.getElementById('current-theme-indicator'); // New theme indicator
-        const toggleTurnsButton = document.getElementById('toggle-turns-button');
-        const toggleAnimationsButton = document.getElementById('toggle-animations-button');
-        const resetSettingsButton = document.getElementById('reset-settings-button'); // New reset settings button
-
-        const antonymModeButton = document.getElementById('antonym-mode-button');
-        const synonymModeButton = document.getElementById('synonym-mode-button');
-        const pairPlayModeButton = document.getElementById('pair-play-mode-button'); // New Pair-Play button
-        const arcadeModeButton = document.getElementById('arcade-mode-button'); // New Arcade button
-        const twoPlayerModeButton = document.getElementById('two-player-mode-button'); // New 2 Player button
-
-        const twoPlayerAntonymButton = document.getElementById('two-player-antonym-button'); // New 2-player sub-mode buttons
-        const twoPlayerSynonymButton = document.getElementById('two-player-synonym-button');
-        const backToModeSelectionButton = document.getElementById('back-to-mode-selection-button');
-
-        const backToMainButton = document.getElementById('back-to-main-button');
-        const quitGameButton = document.getElementById('quit-game-button');
-        const confirmQuitButton = document.getElementById('confirm-quit-button');
-        const cancelQuitButton = document.getElementById('cancel-quit-button');
-        const confirmResetButton = document.getElementById('confirm-reset-button'); // New reset confirmation buttons
-        const cancelResetButton = document.getElementById('cancel-reset-button');
-        const restartButton = document.getElementById('restart-button');
-
-        const wordDisplay = document.getElementById('word-display');
-        const arcadeHint = document.getElementById('arcade-hint'); // New arcade hint
-        const wrongAnswersDisplay = document.getElementById('wrong-answers-display'); // New wrong answers display
-        const highScoreDisplay = document.getElementById('high-score-display'); // New high score display (in-game)
-        const choicesContainer = document.getElementById('choices-container');
-        const scoreDisplay = document.getElementById('score-display');
-        const turnDisplay = document.getElementById('turn-display');
-        const playerScoreDisplay = document.getElementById('player-score-display'); // New 2-player score display
-        const finalScoreDisplay = document.getElementById('final-score');
-        const highScoreAtEnd = document.getElementById('high-score-at-end'); // New high score display (end screen)
-        const twoPlayerResults = document.getElementById('two-player-results'); // New 2-player results display
-        const finalMessageDisplay = document.getElementById('final-message');
-        const timerBar = document.getElementById('timer-bar');
-
-        // New Audio Control Elements (replacing sliders)
-        const cycleSfxVolumeButton = document.getElementById('cycle-sfx-volume-button');
-        const cycleBgmVolumeButton = document.getElementById('cycle-bgm-volume-button'); // This replaces toggleBgmButton and bgmVolumeSlider
-        const cycleBgmText = document.getElementById('cycle-bgm-text');
-
-        // --- Game State Variables ---
-        let currentScore = 0;
-        let currentTurn = 0;
-        let totalTurns = 5; // Default turns, now configurable
-        const turnOptions = [5, 10, 15, 20]; // Available turn counts
-        let currentTurnOptionIndex = 0; // Index for turnOptions array
-        const timePerTurn = 4000; // 4 seconds in milliseconds
-        let gameActive = false; // Indicates if a game round is actively running
-        let countdownTimer;
-        let currentWordData = null; // Stores the data for the word currently being displayed
-        let usedWordIndices = new Set(); // To prevent repeating words in a single game session
-        let activeWordList = []; // Will be set to antonymList or synonymList
-        let currentMode = ''; // 'antonym', 'synonym', 'pair-play', 'arcade', '2player'
-        let previousScreen = null; // To keep track of the screen before confirmation
-        let animationsEnabled = true; // Global flag for animations
-
-        // Arcade Mode Specific
-        let wrongAnswersCount = 0;
-        const maxWrongAnswers = 5;
-        let arcadeHighScore = 0;
-
-        // 2 Player Mode Specific
-        let currentPlayer = 1; // 1 or 2
-        let player1Score = 0;
-        let player2Score = 0;
-        let twoPlayerSubMode = ''; // 'antonym' or 'synonym'
-
-        // --- Theme Management Variables ---
-        const themes = [
-            { name: 'Default', class: 'default-theme' },
-            { name: 'Retro Arcade', class: 'theme-retro-arcade' },
-            { name: 'Pastel Dream', class: 'theme-pastel-dream' },
-            { name: 'Blurred Reality', class: 'theme-blurred-reality' },
-            { name: 'Minecraft', class: 'theme-minecraft' },    // New overhaul theme
-            { name: 'Squid Game', class: 'theme-squid-game' },  // New overhaul theme
-            { name: 'Batman', class: 'theme-batman' },           // New overhaul theme
-			{ name: 'Avengers', class: 'theme-avengers' }           // New overhaul theme
-        ];
-        const backgroundImages = [
-            'images/blurUI1.jpg',
-            'images/blurUI2.jpeg',
-            'images/blurUI3.jpeg',
-            'images/blurUI4.jpg',
-            'images/blurUI5.jpg'
-        ];
-        let currentThemeIndex = 0; // Default theme
-        let currentBackgroundImageIndex = 0; // To track sequential background image for blur theme
-
-        // --- Audio Variables ---
-        // Sound effects
-        const sfx = {
-            correct: new Audio(), // Placeholder, set src later
-            wrong: new Audio(),   // Placeholder
-            timer: new Audio(),   // Placeholder
-            buttonClick: new Audio(), // Placeholder
-            confetti: new Audio() // Placeholder
-        };
-
-        // Background music
-        const bgm = new Audio();
-        bgm.loop = true; // BGM should loop
-
-        const volumeLevels = [0, 20, 40, 60, 80, 100]; // Volume levels in percentage
-        let currentSfxVolumeIndex = 5; // Default to 100% (index 5)
-        let currentBgmVolumeIndex = 5; // Default to 100% (index 5)
-        
-        let sfxVolume = volumeLevels[currentSfxVolumeIndex] / 100; // Calculated volume
-        let bgmVolume = volumeLevels[currentBgmVolumeIndex] / 100; // Calculated volume
-
-        // Object mapping themes to sound file paths
-        const themeSounds = {
-            'default-theme': {
-                bgm: null, // No BGM for default theme
-                sfx: {
-                    correct: 'sound/default_correct.wav',
-                    wrong: 'sound/default_wrong.wav',
-                    timer: 'sound/default_timer.wav',
-                    buttonClick: 'sound/default_button.wav',
-                    confetti: 'sound/default_win.wav'
-                }
-            },
-            'theme-retro-arcade': {
-                bgm: 'sound/retro/retro_bgm.mp3',
-                sfx: {
-                    correct: 'sound/retro/retro_correct.wav',
-                    wrong: 'sound/retro/retro_wrong.mp3',
-                    timer: 'sound/default_timer.wav',
-                    buttonClick: 'sound/retro/retro_button.wav',
-                    confetti: 'sound/retro/retro_win.mp3'
-                }
-            },
-            'theme-pastel-dream': {
-                bgm: 'sound/pastel/pastel_bgm.mp3',
-                sfx: {
-                    correct: 'sound/pastel/pastel_correct.mp3',
-                    wrong: 'sound/pastel/pastel_wrong.mp3',
-                    timer: 'sound/pastel/pastel_timer.mp3',
-                    buttonClick: 'sound/pastel/pastel_button.wav',
-                    confetti: 'sound/pastel/pastel_win.wav'
-                }
-            },
-            'theme-blurred-reality': {
-                bgm: 'sound/blur/blur_bgm.mp3',
-                sfx: {
-                    correct: 'sound/default_correct.wav',
-                    wrong: 'sound/default_wrong.wav',
-                    timer: 'sound/default_timer.wav',
-                    buttonClick: 'sound/blur/blur_button.wav',
-                    confetti: 'sound/blur/blur_win.mp3'
-                }
-            },
-            'theme-minecraft': {
-                bgm: 'sound/minecraft/minecraft_bgm.mp3',
-                sfx: {
-                    correct: 'sound/minecraft/minecraft_correct.mp3',
-                    wrong: 'sound/minecraft/minecraft_wrong.ogg',
-                    timer: 'sound/minecraft/minecraft_timer.mp3',
-                    buttonClick: 'sound/minecraft/minecraft_button.mp3',
-                    confetti: 'sound/minecraft/minecraft_win.mp3'
-                }
-            },
-            'theme-squid-game': {
-                bgm: 'sound/squidgame/squid_game_bgm.mp3',
-                sfx: {
-                    correct: 'sound/squidgame/squid_game_correct.mp3',
-                    wrong: 'sound/squidgame/squid_game.mp3',
-                    timer: 'sound/squidgame/squid_game_timer.mp3',
-                    buttonClick: 'sound/squidgame/squid_game_button.mp3',
-                    confetti: 'sound/squidgame/squid_game.mp3'
-                }
-            },
-            'theme-batman': {
-                bgm: 'sound/batman/batman_bgm.mp3',
-                sfx: {
-                    correct: 'sound/default_correct.wav',
-                    wrong: 'sound/default_wrong.wav',
-                    timer: 'sound/default_timer.wav',
-                    buttonClick: 'sound/batman/batman_button.wav',
-                    confetti: 'sound/batman/batman_win.mp3'
-                }
-            },
-			'theme-avengers': {
-                bgm: 'sound/avengers/avengers_bgm.mp3',
-                sfx: {
-                    correct: 'sound/avengers/avengers_correct.mp3',
-                    wrong: 'sound/default_wrong.wav',
-                    timer: 'sound/default_timer.wav',
-                    buttonClick: 'sound/avengers/avengers_button.wav',
-                    confetti: 'sound/avengers/avengers_win.mp3'
-                }
+        // Function to set the active theme
+        function setTheme(themeName) {
+            document.body.className = ''; // Clear all existing theme classes
+            if (themeName !== 'original') {
+                document.body.classList.add(themeName);
             }
-        };
-
-        // --- Screen Management Function with Transitions ---
-        let activeScreen = null; // Keep track of the currently active screen element
-
-        function showScreen(screenToShow) {
-            const screens = [
-                startScreen, modeSelectionScreen, twoPlayerSubModeSelectionScreen, modeInfoScreen, offlineScreen,
-                optionsScreen, gameScreen, quitConfirmationScreen, resetConfirmationScreen, endScreen
-            ];
-
-            // Capture current dimensions before content changes for smooth container transition
-            const currentHeight = gameContainer.offsetHeight;
-            const currentWidth = gameContainer.offsetWidth;
-
-            // Pause BGM if transitioning TO game screen, or if already on game screen but game ends
-            if (screenToShow === gameScreen) {
-                bgm.pause(); // Pause BGM when starting the game
-                bgm.currentTime = 0; // Reset for next time BGM might play
-            } else if (activeScreen === gameScreen && screenToShow !== quitConfirmationScreen) {
-                // If leaving game screen and not going to quit confirmation, try to play BGM
-                playBGM();
-            } else if (screenToShow === startScreen || screenToShow === modeSelectionScreen || screenToShow === optionsScreen) {
-                // Play BGM when returning to main menus, provided it's enabled and not default theme
-                playBGM();
-            }
-            
-
-            // 1. Prepare all screens: hide non-target screens, reset target screen for entry
-            screens.forEach(screen => {
-                if (screen === screenToShow) {
-                    screen.style.display = 'flex'; // Ensure it's display:flex before transition
-                    if (animationsEnabled) {
-                        screen.classList.remove('no-transition'); // Ensure transitions are enabled
-                        screen.style.opacity = 0; // Start hidden
-                        screen.style.transform = 'scale(0.95)'; // Start zoomed out
-                    } else {
-                        screen.classList.add('no-transition'); // Disable transitions
-                        screen.style.opacity = 1; // No animation, just show
-                        screen.style.transform = 'scale(1)';
-                    }
-                    screen.style.pointerEvents = 'none'; // Disable clicks during transition
-                    screen.classList.remove('active'); // Ensure it's not active yet
-                } else {
-                    if (screen.classList.contains('active')) {
-                        screen.classList.remove('active');
-                        if (animationsEnabled) {
-                            screen.classList.remove('no-transition'); // Ensure transitions are enabled
-                            screen.style.opacity = 0;
-                            screen.style.transform = 'scale(0.95)';
-                        } else {
-                            screen.classList.add('no-transition'); // Disable transitions
-                            screen.style.opacity = 0; // No animation, just hide
-                            screen.style.transform = 'scale(0.95)';
-                        }
-                        screen.style.pointerEvents = 'none';
-                        // After transition, set display to none
-                        setTimeout(() => {
-                            screen.style.display = 'none';
-                        }, animationsEnabled ? 500 : 0); // Match CSS transition duration or immediately
-                    } else {
-                        screen.style.display = 'none';
-                        screen.style.opacity = 0;
-                        screen.style.transform = 'scale(0.95)';
-                        screen.style.pointerEvents = 'none';
-                        screen.classList.remove('no-transition'); // Ensure it doesn't retain no-transition if it wasn't active
-                    }
-                }
-            });
-
-            // Temporarily set height to current height to allow smooth transition
-            gameContainer.style.height = `${currentHeight}px`;
-            gameContainer.style.width = `${currentWidth}px`;
-
-            // Use requestAnimationFrame to ensure the browser has rendered the initial state
-            requestAnimationFrame(() => {
-                // Apply the 'active' class to the screen to show
-                if (animationsEnabled) {
-                    screenToShow.style.opacity = 1;
-                    screenToShow.style.transform = 'scale(1)';
-                }
-                screenToShow.style.pointerEvents = 'auto';
-                screenToShow.classList.add('active'); // Add active class to apply relative positioning and final state
-
-                // After a very short delay, allow the container to adjust its height naturally
-                // This gives the screen content a chance to render and determine its natural height
-                setTimeout(() => {
-                    gameContainer.style.height = 'auto'; // Allow container to adjust to new content height
-                    gameContainer.style.width = 'auto'; // Allow container to adjust to new content width
-                }, animationsEnabled ? 50 : 0); // Small delay to ensure screen content is rendered
-            });
-
-            activeScreen = screenToShow; // Update the active screen reference
-
-            // Game state management (unchanged for timer, but added new screens)
-            if (gameActive && screenToShow !== gameScreen && screenToShow !== quitConfirmationScreen) {
-                 endGame(false); // If leaving game screen without ending, reset game state
-            } else if (screenToShow !== gameScreen) {
-                clearTimeout(countdownTimer); // Clear timer if not on game screen
-                sfx.timer.pause(); // Pause timer sound
-                sfx.timer.currentTime = 0; // Reset timer sound
-            }
-
-            // Hide/show specific UI elements based on current screen/mode
-            arcadeHint.style.display = 'none';
-            wrongAnswersDisplay.style.display = 'none';
-            highScoreDisplay.style.display = 'none';
-            playerScoreDisplay.style.display = 'none';
-            finalScoreDisplay.style.display = 'block'; // Default to block for single player
-            highScoreAtEnd.style.display = 'none';
-            twoPlayerResults.style.display = 'none';
-
-            // Manage BGM button text for default theme (always OFF)
-            if (currentThemeIndex === 0) { // Default theme
-                cycleBgmVolumeButton.style.display= 'none';
-				cycleBgmText.style.display= 'none';
-            } else {
-			    cycleBgmText.style.display= 'block';
-			    cycleBgmVolumeButton.style.display = 'block';
-                updateBgmButtonText(); // Update based on current volume level
-            }
-
-
-            if (screenToShow === gameScreen) {
-                if (currentMode === 'arcade') {
-                    arcadeHint.style.display = 'block';
-                    wrongAnswersDisplay.style.display = 'block';
-                    highScoreDisplay.style.display = 'block';
-                } else if (currentMode === '2player') {
-                    playerScoreDisplay.style.display = 'block';
-                    scoreDisplay.style.display = 'none'; // Hide general score for 2-player
-                } else {
-                    scoreDisplay.style.display = 'block';
-                }
-            } else if (screenToShow === endScreen) {
-                if (currentMode === 'arcade') {
-                    highScoreAtEnd.style.display = 'block';
-                } else if (currentMode === '2player') {
-                    finalScoreDisplay.style.display = 'none'; // Hide "Your Score" for 2-player
-                    twoPlayerResults.style.display = 'block';
-                }
-            }
+            localStorage.setItem('selectedTheme', themeName); // Save theme preference
         }
 
-        // --- Theme Application Function ---
-        function applyTheme(themeObj) {
-            const body = document.body;
-            // Remove all existing theme classes
-            themes.forEach(theme => body.classList.remove(theme.class));
-
-            // Add the new theme class
-            body.classList.add(themeObj.class);
-
-            // Special handling for the blurred reality theme and new themes that might have images
-            if (themeObj.class === 'theme-blurred-reality') {
-                // Use currentBackgroundImageIndex for sequential loading
-                const currentBackgroundImage = backgroundImages[currentBackgroundImageIndex];
-                body.style.backgroundImage = `url('${currentBackgroundImage}')`;
-                body.style.backgroundSize = 'cover';
-                body.style.backgroundPosition = 'center center';
-                body.style.backgroundRepeat = 'no-repeat';
-                // Increment index for next time, loop back to 0 if at end
-                currentBackgroundImageIndex = (currentBackgroundImageIndex + 1) % backgroundImages.length;
-            } else if (themeObj.class === 'theme-minecraft' || themeObj.class === 'theme-batman') {
-                // These themes have background images set via CSS in their classes, so no JS needed here.
-                // Ensure no conflicting inline styles remain.
-                body.style.backgroundImage = '';
-                body.style.backgroundSize = '';
-                body.style.backgroundPosition = '';
-                body.style.backgroundRepeat = '';
-            } else {
-                // For other themes, ensure backgroundImage is not set directly in JS
-                body.style.backgroundImage = ''; // Clear any inline background-image
-                body.style.backgroundSize = '';
-                body.style.backgroundPosition = '';
-                body.style.backgroundRepeat = '';
-            }
-
-            // Update theme indicator
-            currentThemeIndicator.textContent = `Theme: ${themeObj.name}`;
-
-            // Save current theme and background image index to localStorage
-            localStorage.setItem('wordDdakjiThemeClass', themeObj.class);
-            localStorage.setItem('wordDdakjiThemeName', themeObj.name); // Also save name for indicator
-            localStorage.setItem('wordDdakjiThemeIndex', currentThemeIndex); // Save index for cycling
-            localStorage.setItem('wordDdakjiBackgroundImageIndex', currentBackgroundImageIndex);
-            
-            // Update sound sources and play BGM (BGM will be handled by showScreen or game start)
-            updateAudioSources(themeObj.class);
-            // After changing theme, re-evaluate if BGM should be playing
-            if (activeScreen === startScreen || activeScreen === modeSelectionScreen || activeScreen === optionsScreen) {
-                playBGM(); // Only play BGM if on a menu screen
-            } else {
-                bgm.pause(); // Ensure BGM is paused if changing theme while in-game or on a confirmation screen
-            }
-        }
-
-        function cycleThemes() {
-            playSound('buttonClick'); // Play sound on theme change
+        // Function to cycle through themes
+        function cycleTheme() {
             currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            applyTheme(themes[currentThemeIndex]);
-            // Re-evaluate BGM button text after theme change
-            if (themes[currentThemeIndex].class === 'default-theme') {
-                cycleBgmVolumeButton.textContent = 'BGM: OFF'; // Default theme has no BGM
-            } else {
-                updateBgmButtonText(); // Update based on current volume level
-            }
-            // showScreen will handle the BGM play/pause based on current screen
-            showScreen(activeScreen); 
-        }
-
-        // --- Audio Functions ---
-        function updateAudioSources(themeClass) {
-            const currentThemeSounds = themeSounds[themeClass] || themeSounds['default-theme'];
-
-            // Set SFX sources
-            for (const key in sfx) {
-                if (currentThemeSounds.sfx[key]) {
-                    sfx[key].src = currentThemeSounds.sfx[key];
-                } else {
-                    // Fallback to default if a specific sound is missing for a theme
-                    sfx[key].src = themeSounds['default-theme'].sfx[key];
-                }
-            }
-
-            // Set BGM source
-            if (currentThemeSounds.bgm) {
-                bgm.src = currentThemeSounds.bgm;
-            } else {
-                bgm.src = ''; // No BGM for this theme
+            const nextTheme = themes[currentThemeIndex];
+            setTheme(nextTheme);
+            // Close mobile menu if open after cycling theme
+            if (mobileMenu.classList.contains('open')) {
+                toggleMobileMenu();
             }
         }
 
-        function playSound(soundName) {
-            if (sfx[soundName] && sfxVolume > 0) {
-                sfx[soundName].volume = sfxVolume;
-                sfx[soundName].currentTime = 0; // Reset to start for quick playback
-                sfx[soundName].play().catch(e => console.log(`Error playing sound ${soundName}:`, e));
-            }
+        // Function to toggle mobile menu visibility and icon animation
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('open');
+            hamburgerButton.classList.toggle('open');
         }
 
-        function playBGM() {
-            // Only play BGM if it's not the default theme AND volume is not 0
-            if (currentThemeIndex !== 0 && bgmVolume > 0 && bgm.src) {
-                bgm.volume = bgmVolume;
-                bgm.play().catch(e => console.log('Error playing BGM:', e));
-            } else {
-                bgm.pause();
-                bgm.currentTime = 0;
-            }
-        }
+        // Event listeners
+        hamburgerButton.addEventListener('click', toggleMobileMenu);
 
-        function updateSfxButtonText() {
-            cycleSfxVolumeButton.textContent = `SFX: ${volumeLevels[currentSfxVolumeIndex]}`;
-        }
+        desktopThemesToggle.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            cycleTheme();
+        });
+        mobileThemesToggle.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            cycleTheme();
+        });
 
-        function updateBgmButtonText() {
-             if (currentThemeIndex === 0) { // Default theme has no BGM
-                cycleBgmVolumeButton.textContent = 'BGM: OFF';
-            } else {
-                cycleBgmVolumeButton.textContent = `BGM: ${volumeLevels[currentBgmVolumeIndex] === 0 ? 'OFF' : volumeLevels[currentBgmVolumeIndex]}`;
-            }
-        }
+        // Smooth scroll for all internal navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                // Check if the link is an internal anchor link and not a theme toggle
+                if (this.hash !== "" && !this.id.includes('themes-toggle')) {
+                    event.preventDefault(); // Prevent default anchor jump
 
-        function cycleSfxVolume() {
-            playSound('buttonClick');
-            currentSfxVolumeIndex = (currentSfxVolumeIndex + 1) % volumeLevels.length;
-            sfxVolume = volumeLevels[currentSfxVolumeIndex] / 100;
-            localStorage.setItem('sfxVolumeIndex', currentSfxVolumeIndex);
-            updateSfxButtonText();
-            // Apply to all loaded sfx
-            for (const key in sfx) {
-                sfx[key].volume = sfxVolume;
-            }
-            // Play a sample sound to test new volume
-            if (sfxVolume > 0) {
-                sfx.buttonClick.volume = sfxVolume; // Ensure click sound respects new volume
-                sfx.buttonClick.play().catch(e => console.log('Error playing sample SFX:', e));
-            }
-        }
+                    const hash = this.hash;
+                    const targetElement = document.querySelector(hash);
 
-        function cycleBgmVolume() {
-            playSound('buttonClick');
-            currentBgmVolumeIndex = (currentBgmVolumeIndex + 1) % volumeLevels.length;
-            bgmVolume = volumeLevels[currentBgmVolumeIndex] / 100;
-            localStorage.setItem('bgmVolumeIndex', currentBgmVolumeIndex);
-            updateBgmButtonText();
-            
-            // If BGM is off (volume 0) or it's the default theme, pause it. Otherwise, play/re-apply volume.
-            if (bgmVolume === 0 || currentThemeIndex === 0) {
-                bgm.pause();
-                bgm.currentTime = 0;
-            } else {
-                playBGM(); // Re-play to apply new volume
-            }
-        }
+                    if (targetElement) {
+                        // Calculate offset for fixed header
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset;
 
-
-        // --- Game Functions ---
-
-        // Main startGame function, now handles all modes
-        function startGame(mode, subMode = '') {
-            currentScore = 0;
-            currentTurn = 0;
-            usedWordIndices.clear(); // Clear used words for a new game
-            gameActive = true;
-            currentMode = mode; // Set the current game mode
-
-            wrongAnswersCount = 0; // Reset for Arcade
-            player1Score = 0;      // Reset for 2 Player
-            player2Score = 0;      // Reset for 2 Player
-            currentPlayer = 1;     // Reset for 2 Player
-            twoPlayerSubMode = subMode; // Set 2-player sub-mode
-
-            // Hide/Show Score/Turn/Player/Arcade specific displays
-            scoreDisplay.style.display = 'block';
-            turnDisplay.style.display = 'block';
-            playerScoreDisplay.style.display = 'none';
-            wrongAnswersDisplay.style.display = 'none';
-            highScoreDisplay.style.display = 'none';
-            arcadeHint.style.display = 'none';
-
-            // Pause BGM as game is starting
-            bgm.pause();
-            bgm.currentTime = 0;
-
-
-            if (currentMode === 'antonym') {
-                activeWordList = antonymList;
-                gameTitle.textContent = 'Word Ddakji: Antonym Mode';
-                scoreDisplay.textContent = `Score: ${currentScore}/${totalTurns}`;
-                turnDisplay.textContent = `Turn: ${currentTurn}/${totalTurns}`;
-            } else if (currentMode === 'synonym') {
-                activeWordList = synonymList;
-                gameTitle.textContent = 'Word Ddakji: Synonym Mode';
-                scoreDisplay.textContent = `Score: ${currentScore}/${totalTurns}`;
-                turnDisplay.textContent = `Turn: ${currentTurn}/${totalTurns}`;
-            } else if (currentMode === 'pair-play') {
-                // Pair-Play uses a mix of antonyms and synonyms, determined per round
-                gameTitle.textContent = 'Word Ddakji: Pair-Play Mode';
-                scoreDisplay.textContent = `Score: ${currentScore}/${totalTurns}`;
-                turnDisplay.textContent = `Turn: ${currentTurn}/${totalTurns}`;
-                // No specific activeWordList needed here, it will be chosen dynamically
-            } else if (currentMode === 'arcade') {
-                gameTitle.textContent = 'Word Ddakji: Arcade Mode';
-                scoreDisplay.textContent = `Score: ${currentScore}`; // Score is cumulative, not N/Total
-                turnDisplay.textContent = `Round: ${currentTurn + 1}`; // Start at Round 1
-                wrongAnswersDisplay.textContent = `Wrong Answers: ${wrongAnswersCount}/${maxWrongAnswers}`;
-                highScoreDisplay.textContent = `High Score: ${arcadeHighScore}`;
-                wrongAnswersDisplay.style.display = 'block';
-                highScoreDisplay.style.display = 'block';
-                arcadeHint.style.display = 'block';
-            } else if (currentMode === '2player') {
-                activeWordList = (twoPlayerSubMode === 'antonym') ? antonymList : synonymList;
-                gameTitle.textContent = `Word Ddakji: 2 Player (${twoPlayerSubMode.toUpperCase()})`;
-                scoreDisplay.style.display = 'none'; // Hide default score
-                playerScoreDisplay.style.display = 'block';
-                updateTwoPlayerScoreDisplay(); // Initial display of scores
-                turnDisplay.textContent = `Turn: ${currentTurn}/${totalTurns}`;
-            } else {
-                console.error("Invalid game mode selected.");
-                gameTitle.textContent = 'Word Ddakji: Error';
-                return;
-            }
-
-            showScreen(gameScreen);
-            nextTurn();
-        }
-
-        function updateTwoPlayerScoreDisplay() {
-            playerScoreDisplay.textContent = `Player 1: ${player1Score} | Player 2: ${player2Score} | Player ${currentPlayer}'s Turn`;
-        }
-
-        function nextTurn() {
-            if (!gameActive) {
-                clearTimeout(countdownTimer);
-                sfx.timer.pause(); // Pause timer sound
-                sfx.timer.currentTime = 0; // Reset timer sound
-                return;
-            }
-
-            clearTimeout(countdownTimer);
-            sfx.timer.pause(); // Pause timer sound when moving to next turn
-            sfx.timer.currentTime = 0; // Reset timer sound
-
-            currentTurn++;
-
-            if (currentMode === 'arcade') {
-                turnDisplay.textContent = `Round: ${currentTurn}`;
-            } else {
-                if (currentTurn > totalTurns) {
-                    endGame(true);
-                    return;
-                }
-                turnDisplay.textContent = `Turn: ${currentTurn}/${totalTurns}`;
-            }
-            
-            resetChoices();
-
-            if (currentMode === 'pair-play') {
-                displayPairPlayRound();
-            } else if (currentMode === 'arcade') {
-                displayArcadeRound();
-            } else { // Antonym, Synonym, 2 Player
-                displayRandomWord();
-            }
-            startTimer();
-        }
-
-        function displayRandomWord() {
-            let availableWordIndices = [];
-            for(let i = 0; i < activeWordList.length; i++) {
-                if (!usedWordIndices.has(i)) {
-                    availableWordIndices.push(i);
-                }
-            }
-
-            // If we run out of unique words, reset the used words set and shuffle all words
-            if (availableWordIndices.length === 0) {
-                usedWordIndices.clear();
-                // If the game has more turns than unique words, this allows repetition
-                for(let i = 0; i < activeWordList.length; i++) {
-                    availableWordIndices.push(i);
-                }
-                shuffleArray(activeWordList); // Shuffle the entire list again if we're reusing words
-            }
-
-            // Select a random word from available indices
-            const randomIndex = Math.floor(Math.random() * availableWordIndices.length);
-            const wordIndexToUse = availableWordIndices[randomIndex];
-            currentWordData = activeWordList[wordIndexToUse];
-            usedWordIndices.add(wordIndexToUse); // Mark this word's index as used
-
-
-            wordDisplay.textContent = currentWordData.word;
-
-            const allOptions = [...currentWordData.options];
-            shuffleArray(allOptions); // Shuffle the options
-
-            choicesContainer.innerHTML = ''; // Clear previous choices
-
-            allOptions.forEach(option => {
-                const choiceBox = document.createElement('div');
-                choiceBox.classList.add('choice-box');
-                choiceBox.textContent = option;
-                // Store the actual correct answer (antonym/synonym) in a data attribute for comparison
-                choiceBox.dataset.correctAnswer = (currentMode === 'antonym' || (currentMode === '2player' && twoPlayerSubMode === 'antonym')) ? currentWordData.antonym : currentWordData.synonym;
-                choiceBox.addEventListener('click', () => handleChoiceClick(choiceBox));
-                choicesContainer.appendChild(choiceBox);
-            });
-        }
-
-        function displayPairPlayRound() {
-            // Pair-Play: User picks a pair (WORD1 - WORD2) that is either antonym or synonym
-            // Decide if this round is for antonyms or synonyms
-            const roundType = Math.random() < 0.5 ? 'antonym' : 'synonym';
-            wordDisplay.textContent = `Match the ${roundType.toUpperCase()} Pair!`;
-            
-            const correctList = (roundType === 'antonym') ? antonymList : synonymList;
-            
-            // Ensure we have at least 1 correct pair
-            if (correctList.length === 0) {
-                wordDisplay.textContent = "Error: Not enough words for Pair-Play!";
-                return;
-            }
-
-            // Pick one correct pair
-            let correctPairData = correctList[Math.floor(Math.random() * correctList.length)];
-            const correctAnswerString = `${correctPairData.word} - ${(roundType === 'antonym' ? correctPairData.antonym : correctPairData.synonym)}`;
-            
-            // Store the correct answer string directly in currentWordData for easy access during timeout
-            currentWordData = { type: roundType, correctAnswer: correctAnswerString }; 
-
-
-            let choices = new Set();
-            choices.add(correctAnswerString);
-
-            // Generate 3 unique distractor pairs
-            while (choices.size < 4) {
-                let distractorType = Math.random() < 0.5 ? 'antonym' : 'synonym';
-                let distractorList = (distractorType === 'antonym') ? antonymList : synonymList;
-
-                if (distractorList.length === 0) continue; // Skip if no words in list
-
-                let randomDistractorPair = distractorList[Math.floor(Math.random() * distractorList.length)];
-                let distractorText = `${randomDistractorPair.word} - ${(distractorType === 'antonym' ? randomDistractorPair.antonym : randomDistractorPair.synonym)}`;
-                
-                // Add an additional check for completely random, non-matching pairs
-                if (Math.random() < 0.3) { // 30% chance for a truly random, unrelated pair
-                    const randomWord1 = getRandomWord(antonymList.concat(synonymList));
-                    const randomWord2 = getRandomWord(antonymList.concat(synonymList));
-                    distractorText = `${randomWord1.word} - ${randomWord2.word}`;
-                }
-
-                if (!choices.has(distractorText)) {
-                    choices.add(distractorText);
-                }
-            }
-
-            const shuffledChoices = Array.from(choices);
-            shuffleArray(shuffledChoices);
-
-            choicesContainer.innerHTML = '';
-            shuffledChoices.forEach(pairText => {
-                const choiceBox = document.createElement('div');
-                choiceBox.classList.add('choice-box');
-                choiceBox.textContent = pairText;
-                choiceBox.dataset.correctAnswer = correctAnswerString; // The true correct pair string
-                choiceBox.dataset.roundType = roundType; // Store type for validation
-                choiceBox.addEventListener('click', () => handleChoiceClick(choiceBox));
-                choicesContainer.appendChild(choiceBox);
-            });
-            arcadeHint.style.display = 'none'; // Ensure hint is hidden for Pair-Play
-        }
-
-        function getRandomWord(list) {
-            return list[Math.floor(Math.random() * list.length)];
-        }
-
-        function displayArcadeRound() {
-            // Arcade mode: Randomly pick Antonym or Synonym, provide hint
-            const modeForRound = Math.random() < 0.5 ? 'antonym' : 'synonym';
-            activeWordList = (modeForRound === 'antonym') ? antonymList : synonymList;
-
-            let availableWordIndices = [];
-            for(let i = 0; i < activeWordList.length; i++) {
-                if (!usedWordIndices.has(i)) {
-                    availableWordIndices.push(i);
-                }
-            }
-            // In Arcade, words can repeat if all unique words are exhausted
-            if (availableWordIndices.length === 0) {
-                usedWordIndices.clear();
-                for(let i = 0; i < activeWordList.length; i++) {
-                    availableWordIndices.push(i);
-                }
-                shuffleArray(activeWordList);
-            }
-
-            const randomIndex = Math.floor(Math.random() * availableWordIndices.length);
-            const wordIndexToUse = availableWordIndices[randomIndex];
-            currentWordData = activeWordList[wordIndexToUse];
-            usedWordIndices.add(wordIndexToUse);
-
-            wordDisplay.textContent = currentWordData.word;
-            arcadeHint.textContent = `Choose the ${modeForRound.toUpperCase()}`;
-
-            const allOptions = [...currentWordData.options];
-            shuffleArray(allOptions);
-
-            choicesContainer.innerHTML = '';
-            allOptions.forEach(option => {
-                const choiceBox = document.createElement('div');
-                choiceBox.classList.add('choice-box');
-                choiceBox.textContent = option;
-                choiceBox.dataset.correctAnswer = (modeForRound === 'antonym') ? currentWordData.antonym : currentWordData.synonym;
-                choiceBox.addEventListener('click', () => handleChoiceClick(choiceBox));
-                choicesContainer.appendChild(choiceBox);
-            });
-        }
-
-
-        function handleChoiceClick(chosenBox) {
-            if (!gameActive) return; // Important: prevent execution if game has ended or isn't active
-            clearTimeout(countdownTimer); // Stop the timer immediately
-            sfx.timer.pause(); // Pause timer sound
-            sfx.timer.currentTime = 0; // Reset timer sound
-
-            const allChoiceBoxes = document.querySelectorAll('.choice-box');
-            allChoiceBoxes.forEach(box => {
-                box.style.pointerEvents = 'none'; // Disable further clicks
-            });
-
-            let isCorrect = false;
-            let correctAnswerString = ''; // To store the string value of the correct answer
-
-            if (currentMode === 'pair-play') {
-                // When in pair-play mode, get the correct answer directly from currentWordData
-                // This ensures it works even when chosenBox is null (on timer expiry)
-                correctAnswerString = currentWordData.correctAnswer;
-                const chosenText = chosenBox ? chosenBox.textContent : '';
-                isCorrect = (chosenText === correctAnswerString);
-            } else { // Antonym, Synonym, Arcade, 2 Player
-                // For other modes, get correct answer based on active word data and mode
-                correctAnswerString = (currentWordData && (currentMode === 'antonym' || (currentMode === '2player' && twoPlayerSubMode === 'antonym') || (currentMode === 'arcade' && arcadeHint.textContent.includes('ANTONYM')))) ? currentWordData.antonym : currentWordData.synonym;
-                isCorrect = (chosenBox && chosenBox.textContent === correctAnswerString);
-            }
-
-            if (isCorrect) {
-                if (chosenBox) chosenBox.classList.add('correct');
-                currentScore++; // For all modes, currentScore tracks correct answers
-                playSound('correct'); // Play correct answer sound
-
-                if (currentMode === 'arcade') {
-                    scoreDisplay.textContent = `Score: ${currentScore}`;
-                } else if (currentMode === '2player') {
-                    if (currentPlayer === 1) player1Score++;
-                    else player2Score++;
-                    updateTwoPlayerScoreDisplay();
-                } else {
-                    scoreDisplay.textContent = `Score: ${currentScore}/${totalTurns}`;
-                }
-            } else {
-                if (chosenBox) {
-                    chosenBox.classList.add('wrong');
-                }
-                playSound('wrong'); // Play wrong answer sound
-
-                // Always highlight the correct answer
-                allChoiceBoxes.forEach(box => {
-                    if (box.textContent === correctAnswerString) {
-                        box.classList.add('correct');
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
                     }
-                });
-
-                if (currentMode === 'arcade') {
-                    wrongAnswersCount++;
-                    wrongAnswersDisplay.textContent = `Wrong Answers: ${wrongAnswersCount}/${maxWrongAnswers}`;
                 }
-            }
-
-            // Wait a bit for the animation/feedback, then proceed to the next turn
-            setTimeout(() => {
-                if (currentMode === 'arcade' && wrongAnswersCount >= maxWrongAnswers) {
-                    endGame(true); // Game over for arcade
-                } else if (currentMode === '2player') {
-                    // Switch player and then proceed
-                    currentPlayer = (currentPlayer === 1) ? 2 : 1;
-                    updateTwoPlayerScoreDisplay();
-                    nextTurn(); // Proceed to next turn, which will automatically check total turns
-                } else {
-                    nextTurn();
-                }
-            }, 1000); // 1 second delay for visual feedback
-        }
-
-        function resetChoices() {
-            choicesContainer.innerHTML = ''; // Clear choices for the next word
-            // Reset timer bar styles
-            timerBar.style.transition = 'none'; // Clear previous transition instantly
-            timerBar.style.width = '100%'; // Reset width to full
-            timerBar.style.backgroundColor = 'var(--timer-bar-bg)'; // Reset color to gold (using var)
-            void timerBar.offsetWidth; // Trigger reflow to apply 'none' transition immediately
-        }
-
-        function startTimer() {
-            // Timer bar animation is always enabled as per request
-            timerBar.style.transition = `width ${timePerTurn / 1000}s linear, background-color 0.7s ease-in-out`;
-            timerBar.style.width = '0%';
-            timerBar.style.backgroundColor = 'var(--timer-bar-depleted-bg)'; // Turn red as it depletes (using var)
-            
-            playSound('timer'); // Play timer sound
-
-            countdownTimer = setTimeout(() => {
-                // When timer runs out, automatically trigger a 'wrong' choice
-                // Pass a null for chosenBox, as no user clicked
-                handleChoiceClick(null);
-            }, timePerTurn);
-        }
-
-        // `showFinalScore` boolean parameter decides whether to transition to end screen or just reset game state
-        function endGame(showFinalScore = false) {
-            gameActive = false; // Game is no longer active
-            clearTimeout(countdownTimer); // Ensure any running timer is cleared
-            sfx.timer.pause(); // Pause timer sound
-            sfx.timer.currentTime = 0; // Reset timer sound
-            
-            if (showFinalScore) {
-                showScreen(endScreen);
-                if (currentMode === 'arcade') {
-                    gameTitle.textContent = 'Word Ddakji: Arcade Over!';
-                    finalScoreDisplay.textContent = `Your Score: ${currentScore} Rounds`;
-                    if (currentScore > arcadeHighScore) {
-                        arcadeHighScore = currentScore;
-                        localStorage.setItem('arcadeHighScore', arcadeHighScore);
-                        highScoreAtEnd.textContent = `NEW HIGH SCORE! ${arcadeHighScore} Rounds`;
-                        finalMessageDisplay.textContent = "You're an Arcade Master!";
-                        playSound('confetti'); // Play confetti sound for high score
-                    } else {
-                        highScoreAtEnd.textContent = `High Score: ${arcadeHighScore} Rounds`;
-                        finalMessageDisplay.textContent = `Well played! Try to beat your High Score!`;
-                    }
-                } else if (currentMode === '2player') {
-                    gameTitle.textContent = 'Word Ddakji: 2 Player Results';
-                    let winnerMessage = '';
-                    if (player1Score > player2Score) {
-                        winnerMessage = 'Player 1 Wins!';
-                    } else if (player2Score > player1Score) {
-                        winnerMessage = 'Player 2 Wins!';
-                    } else {
-                        winnerMessage = 'It\'s a Tie!';
-                    }
-                    twoPlayerResults.textContent = `Player 1: ${player1Score} | Player 2: ${player2Score}`;
-                    finalMessageDisplay.textContent = winnerMessage;
-                    if (player1Score === totalTurns || player2Score === totalTurns) { // If someone got a perfect score
-                        playSound('confetti');
-                    }
-                } else { // Antonym, Synonym, Pair-Play
-                    finalScoreDisplay.textContent = `Your Score: ${currentScore}/${totalTurns}`;
-                    let message = '';
-                    switch (currentScore) {
-                        case 0: message = "Too poor... Keep practicing!"; break;
-                        case 1: message = "Needs improvement! Don't give up!"; break;
-                        case 2: message = "Just ok! You're getting there."; break;
-                        case 3: message = "Good! Not bad at all!"; break;
-                        case 4: message = "Great! Almost perfect!"; break;
-                        case totalTurns: message = "EXCELLENT! You're a Word Ddakji Master!";
-                                if (animationsEnabled) triggerConfetti(); // Confetti for perfect score!
-                                playSound('confetti'); // Play confetti sound
-                                break;
-                        default: message = "Well played!"; break; // Fallback
-                    }
-                    finalMessageDisplay.textContent = message;
-                    gameTitle.textContent = 'Word Ddakji: Game Over'; // Set title for end screen
-                }
-            } else {
-                // If not showing final score (e.g., quitting mid-game), just reset relevant states
-                currentScore = 0;
-                currentTurn = 0;
-                usedWordIndices.clear();
-                currentWordData = null;
-                wrongAnswersCount = 0; // Reset for Arcade
-                player1Score = 0;      // Reset for 2 Player
-                player2Score = 0;      // Reset for 2 Player
-                currentPlayer = 1;     // Reset for 2 Player
-                currentMode = '';      // Clear mode
-                twoPlayerSubMode = ''; // Clear sub-mode
-                gameTitle.textContent = 'Word Ddakji: Flip Modes!'; // When quitting or going back, reset the title to the default
-            }
-        }
-
-        function triggerConfetti() {
-            if (!animationsEnabled) return; // Only trigger if animations are enabled
-            const numConfetti = 50;
-            const containerRect = document.body.getBoundingClientRect();
-            for (let i = 0; i < numConfetti; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.top = `${containerRect.height - 20}px`;
-                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
-                confetti.style.transform = `scale(${0.5 + Math.random()})`;
-                document.body.appendChild(confetti);
-
-                confetti.addEventListener('animationend', () => {
-                    confetti.remove();
-                });
-            }
-        }
-
-        // Fisher-Yates (Knuth) Shuffle for array randomization
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        // Function to update the turns button text
-        function updateTurnsButtonText() {
-            toggleTurnsButton.textContent = `TURNS: ${totalTurns}`;
-        }
-
-        // Function to update the animations button text
-        function updateAnimationsButtonText() {
-            toggleAnimationsButton.textContent = `ANIMATIONS: ${animationsEnabled ? 'ON' : 'OFF'}`;
-        }
-
-        // --- Event Listeners ---
-        playButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            gameActive = false;
-            showScreen(modeSelectionScreen);
-            gameTitle.textContent = 'Word Ddakji: Select Mode'; // Set title for mode selection
-        });
-
-        // Event listener for the Offline button
-        offlineButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            showScreen(offlineScreen);
-            gameTitle.textContent = 'Word Ddakji: Offline Mode'; // Set title for offline screen
-        });
-
-        // Event listener for the Options button
-        optionsButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            showScreen(optionsScreen);
-            gameTitle.textContent = 'Word Ddakji: Options'; // Set title for options screen
-        });
-
-        // Event listener for the Mode Info button
-        modeInfoButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            showScreen(modeInfoScreen);
-            gameTitle.textContent = 'Word Ddakji: About'; // Set title for mode info
-        });
-
-        // Event listener for the LINKY button
-        linkyButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            window.open('https://2simplygames.github.io', '_self'); // Opens 2simply Games Homepage in the same tab
-        });
-
-        // Event listener for the Back button on the Mode Info screen
-        backFromInfoButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            showScreen(startScreen);
-            gameTitle.textContent = 'Word Ddakji: Flip Modes!'; // Reset title
-        });
-
-        // Event listener for the Back button on the Offline screen
-        backFromOfflineButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            showScreen(startScreen);
-            gameTitle.textContent = 'Word Ddakji: Flip Modes!'; // Reset title
-        });
-
-        // Event listener for the Back button on the Options screen
-        backFromOptionsButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            showScreen(startScreen);
-            gameTitle.textContent = 'Word Ddakji: Flip Modes!'; // Reset title
-        });
-
-        // Event listener for the Change Theme button
-        changeThemeButton.addEventListener('click', cycleThemes);
-
-        // Event listener for the Toggle Turns button
-        toggleTurnsButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            currentTurnOptionIndex = (currentTurnOptionIndex + 1) % turnOptions.length;
-            totalTurns = turnOptions[currentTurnOptionIndex];
-            updateTurnsButtonText();
-            localStorage.setItem('wordDdakjiTotalTurns', totalTurns); // Save to localStorage
-        });
-
-        // Event listener for the Toggle Animations button
-        toggleAnimationsButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            animationsEnabled = !animationsEnabled;
-            updateAnimationsButtonText();
-            localStorage.setItem('wordDdakjiAnimationsEnabled', animationsEnabled); // Save to localStorage
-            // When animations are toggled, re-apply the current screen to ensure transitions are correctly set
-            showScreen(activeScreen); 
-        });
-
-        // Event listener for Reset Settings button
-        resetSettingsButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            previousScreen = optionsScreen; // Set previous screen for back button
-            showScreen(resetConfirmationScreen);
-            gameTitle.textContent = 'Word Ddakji: Reset?';
-        });
-
-        // Confirm Reset
-        confirmResetButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            localStorage.removeItem('wordDdakjiThemeClass');
-            localStorage.removeItem('wordDdakjiThemeName');
-            localStorage.removeItem('wordDdakjiThemeIndex');
-            localStorage.removeItem('wordDdakjiBackgroundImageIndex');
-            localStorage.removeItem('wordDdakjiTotalTurns');
-            localStorage.removeItem('wordDdakjiAnimationsEnabled');
-            localStorage.removeItem('arcadeHighScore'); // Reset Arcade High Score
-            localStorage.removeItem('sfxVolumeIndex'); // Reset SFX volume index
-            localStorage.removeItem('bgmVolumeIndex'); // Reset BGM volume index
-
-            // Re-initialize all settings to default
-            currentThemeIndex = 0;
-            currentBackgroundImageIndex = 0;
-            totalTurns = 5;
-            currentTurnOptionIndex = 0;
-            animationsEnabled = true;
-            arcadeHighScore = 0;
-            currentSfxVolumeIndex = 5; // Reset to 100%
-            currentBgmVolumeIndex = 5; // Reset to 100%
-            sfxVolume = volumeLevels[currentSfxVolumeIndex] / 100;
-            bgmVolume = volumeLevels[currentBgmVolumeIndex] / 100;
-
-            applyTheme(themes[currentThemeIndex]); // Apply default theme
-            updateTurnsButtonText();
-            updateAnimationsButtonText();
-            updateSfxButtonText();
-            updateBgmButtonText();
-            // Apply default volumes to audio objects
-            for (const key in sfx) {
-                sfx[key].volume = sfxVolume;
-            }
-            bgm.volume = bgmVolume;
-            bgm.pause(); // Default theme has no BGM
-
-            // Go back to start screen after reset
-            endGame(false); // Reset game state
-            showScreen(startScreen);
-        });
-
-        // Cancel Reset
-        cancelResetButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            showScreen(previousScreen); // Go back to options screen
-            gameTitle.textContent = 'Word Ddakji: Options';
-        });
-
-        // Cycle SFX volume button listener
-        cycleSfxVolumeButton.addEventListener('click', cycleSfxVolume);
-
-        // Cycle BGM volume button listener
-        cycleBgmVolumeButton.addEventListener('click', cycleBgmVolume);
-
-
-        antonymModeButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            startGame('antonym');
-        });
-        synonymModeButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            startGame('synonym');
-        });
-        pairPlayModeButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            startGame('pair-play'); // New Pair-Play click
-        });
-        arcadeModeButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            startGame('arcade'); // New Arcade click
-        });
-
-        twoPlayerModeButton.addEventListener('click', () => { // New 2 Player mode click
-            playSound('buttonClick');
-            showScreen(twoPlayerSubModeSelectionScreen);
-            gameTitle.textContent = 'Word Ddakji: 2 Player Setup';
-        });
-
-        twoPlayerAntonymButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            startGame('2player', 'antonym'); // Start 2-player antonym
-        });
-        twoPlayerSynonymButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            startGame('2player', 'synonym'); // Start 2-player synonym
-        });
-        backToModeSelectionButton.addEventListener('click', () => { // Back from 2-player sub-mode
-            playSound('buttonClick');
-            showScreen(modeSelectionScreen);
-            gameTitle.textContent = 'Word Ddakji: Select Mode';
-        });
-
-        backToMainButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            endGame(false); // Reset game state and title
-            showScreen(startScreen);
-        });
-
-        quitGameButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            previousScreen = gameScreen;
-            showScreen(quitConfirmationScreen);
-            gameActive = false;
-            clearTimeout(countdownTimer);
-            sfx.timer.pause(); // Pause timer sound
-            sfx.timer.currentTime = 0; // Reset timer sound
-            gameTitle.textContent = 'Word Ddakji: Quit?'; // Set title for quit confirmation
-        });
-
-        confirmQuitButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            endGame(false); // endGame(false) already resets title
-            showScreen(startScreen);
-        });
-
-        cancelQuitButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            gameActive = true;
-            showScreen(previousScreen); // This will re-trigger BGM pause if it's the game screen
-            startTimer();
-            const allChoiceBoxes = document.querySelectorAll('.choice-box');
-            allChoiceBoxes.forEach(box => {
-                box.style.pointerEvents = 'auto';
-                box.classList.remove('correct', 'wrong');
             });
-             // Restore the title based on the screen we're returning to (should be game screen)
-             if (previousScreen === gameScreen) {
-                 // Check currentMode to set the title correctly
-                 if (currentMode === 'antonym') {
-                     gameTitle.textContent = 'Word Ddakji: Antonym Mode';
-                 } else if (currentMode === 'synonym') {
-                     gameTitle.textContent = 'Word Ddakji: Synonym Mode';
-                 } else if (currentMode === 'pair-play') {
-                     gameTitle.textContent = 'Word Ddakji: Pair-Play Mode';
-                 } else if (currentMode === 'arcade') {
-                     gameTitle.textContent = 'Word Ddakji: Arcade Mode';
-                 } else if (currentMode === '2player') {
-                     gameTitle.textContent = `Word Ddakji: 2 Player (${twoPlayerSubMode.toUpperCase()})`;
-                 }
-             }
         });
 
-        restartButton.addEventListener('click', () => {
-            playSound('buttonClick');
-            // After game ends, clicking "Play Again" goes to mode selection
-            showScreen(modeSelectionScreen);
-            gameTitle.textContent = 'Word Ddakji: Select Mode';
+        // Close mobile menu if window is resized to desktop size
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) { // Corresponds to 'md' breakpoint
+                mobileMenu.classList.remove('open');
+                hamburgerButton.classList.remove('open');
+            }
         });
 
-        // Initial setup on page load
+        // Apply theme on page load
         document.addEventListener('DOMContentLoaded', () => {
-            // Load theme from localStorage or apply default
-            const savedThemeClass = localStorage.getItem('wordDdakjiThemeClass');
-            const savedThemeName = localStorage.getItem('wordDdakjiThemeName');
-            const savedThemeIndex = localStorage.getItem('wordDdakjiThemeIndex');
-
-            if (savedThemeClass && savedThemeName && savedThemeIndex !== null && !isNaN(parseInt(savedThemeIndex))) {
-                currentThemeIndex = parseInt(savedThemeIndex);
-                applyTheme(themes[currentThemeIndex]);
+            const savedTheme = localStorage.getItem('selectedTheme') || 'original';
+            currentThemeIndex = themes.indexOf(savedTheme);
+            if (currentThemeIndex === -1) { // Fallback if saved theme is invalid or was 'theme-2'
+                currentThemeIndex = 0;
+                setTheme('original');
             } else {
-                currentThemeIndex = 0; // Default theme
-                applyTheme(themes[currentThemeIndex]);
+                setTheme(savedTheme);
             }
-
-            // Load currentBackgroundImageIndex from localStorage or apply default
-            const savedBackgroundImageIndex = localStorage.getItem('wordDdakjiBackgroundImageIndex');
-            if (savedBackgroundImageIndex !== null && !isNaN(parseInt(savedBackgroundImageIndex))) {
-                currentBackgroundImageIndex = parseInt(savedBackgroundImageIndex) % backgroundImages.length;
-            } else {
-                currentBackgroundImageIndex = 0; // Default to the first image
-            }
-            // Re-apply theme to ensure background image is set for blurred reality if it's the saved theme
-            if (themes[currentThemeIndex].class === 'theme-blurred-reality') {
-                applyTheme(themes[currentThemeIndex]);
-            }
-
-            // Load totalTurns from localStorage or apply default
-            const savedTurns = localStorage.getItem('wordDdakjiTotalTurns');
-            if (savedTurns && turnOptions.includes(parseInt(savedTurns))) {
-                totalTurns = parseInt(savedTurns);
-                currentTurnOptionIndex = turnOptions.indexOf(totalTurns);
-            } else {
-                totalTurns = 5; // Default turns
-                currentTurnOptionIndex = 0;
-            }
-            updateTurnsButtonText(); // Update button text on load
-
-            // Load animationsEnabled from localStorage or apply default
-            const savedAnimations = localStorage.getItem('wordDdakjiAnimationsEnabled');
-            if (savedAnimations !== null) { // Check if it exists
-                animationsEnabled = (savedAnimations === 'true'); // Convert string to boolean
-            } else {
-                animationsEnabled = true; // Default to animations ON
-            }
-            updateAnimationsButtonText(); // Update button text on load
-
-            // Load SFX volume index from localStorage or apply default
-            const savedSfxVolumeIndex = localStorage.getItem('sfxVolumeIndex');
-            if (savedSfxVolumeIndex !== null && !isNaN(parseInt(savedSfxVolumeIndex)) && parseInt(savedSfxVolumeIndex) >= 0 && parseInt(savedSfxVolumeIndex) < volumeLevels.length) {
-                currentSfxVolumeIndex = parseInt(savedSfxVolumeIndex);
-            } else {
-                currentSfxVolumeIndex = 5; // Default to 100%
-            }
-            sfxVolume = volumeLevels[currentSfxVolumeIndex] / 100;
-            updateSfxButtonText();
-            // Apply initial SFX volume to all loaded SFX
-            for (const key in sfx) {
-                sfx[key].volume = sfxVolume;
-            }
-
-            // Load BGM volume index from localStorage or apply default
-            const savedBgmVolumeIndex = localStorage.getItem('bgmVolumeIndex');
-            if (savedBgmVolumeIndex !== null && !isNaN(parseInt(savedBgmVolumeIndex)) && parseInt(savedBgmVolumeIndex) >= 0 && parseInt(savedBgmVolumeIndex) < volumeLevels.length) {
-                currentBgmVolumeIndex = parseInt(savedBgmVolumeIndex);
-            } else {
-                currentBgmVolumeIndex = 5; // Default to 100%
-            }
-            bgmVolume = volumeLevels[currentBgmVolumeIndex] / 100;
-            updateBgmButtonText();
-            bgm.volume = bgmVolume;
-            
-            // Initial setup of audio sources based on loaded theme
-            updateAudioSources(themes[currentThemeIndex].class);
-            
-            // Now, show the start screen with the proper transition
-            // showScreen will handle the initial BGM play if not default theme
-            showScreen(startScreen);
-            gameTitle.textContent = 'Word Ddakji: Flip Modes!'; // Set initial title
         });
-
     </script>
 </body>
 </html>
